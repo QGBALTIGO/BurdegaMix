@@ -104,6 +104,22 @@
   .poster:hover .poster-art--photo .burger-art { transform: rotate(-10deg); }
 }
  </style>
+ <style id="food-icons">
+/* Decorative icons use the existing typography scale and inherited colors. */
+.tiny-star, .ticker-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  letter-spacing: 0;
+}
+.tiny-star > svg, .ticker-symbol > svg {
+  width: 100%;
+  height: 100%;
+}
+ </style>
  <script src="config.js" defer></script>
  <script src="script.js" defer></script>
 </head>
@@ -123,7 +139,7 @@
  </header>
  <main class="container main" id="inicio">
   <section class="poster" aria-labelledby="hero-title">
-   <div class="poster-top"><span class="eyebrow"><span class="tiny-star">✳</span> ARTESANAL. DO NOSSO JEITO.</span><span class="edition">EST. 2013</span></div>
+   <div class="poster-top"><span class="eyebrow"><span class="tiny-star" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 13.9A4 4 0 0 1 6.3 6a6 6 0 0 1 11.4 0 4 4 0 0 1 .3 7.9V21H6Z"/><path d="M6 17h12"/></svg></span> ARTESANAL. DO NOSSO JEITO.</span><span class="edition">EST. 2013</span></div>
    <h1 id="hero-title"><span>SUA FOME</span><span>TEM <em>ENDEREÇO.</em></span></h1>
    <div class="poster-art poster-art--photo">
     <div class="sun-disc" aria-hidden="true"></div>
@@ -159,7 +175,7 @@
   </section>
  </main>
  <div class="ticker-wrap"><div class="ticker" aria-label="Hambúrgueres artesanais, salgados, sobremesas e combos">
-  <div class="ticker-content"><span>BURGER DE VERDADE</span><b>✳</b><span>SALGADOS</span><b>✳</b><span>SOBREMESAS</span><b>✳</b><span>COMBOS</span><b>✳</b><span>VEM DE BURDEGA</span><b>✳</b><span>BURGER DE VERDADE</span><b>✳</b></div>
+  <div class="ticker-content"><span>BURGER DE VERDADE</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9a8 8 0 0 1 16 0Z"/><path d="M3 13h18M4 17h16l-1 3H5Z"/><path d="M9 5h.01M14 5h.01"/></svg></b><span>SALGADOS</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10h18a9 9 0 0 1-18 0Z"/><path d="m5 12 1 1m3 2 .5 1m5.5-1-.5 1m4.5-4-1 1M8 6V4m4 2V3m4 3V4"/></svg></b><span>SOBREMESAS</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 13h12l-6 8Z"/><path d="M6 13a3 3 0 0 1-1-5 7 7 0 0 1 14 0 3 3 0 0 1-1 5"/><path d="m10 15 4 3"/></svg></b><span>COMBOS</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8h12l-2 13H8Z"/><path d="M5 8h14M12 8l2-5h4M8 12h8"/></svg></b><span>VEM DE BURDEGA</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 7h14l2 14H3Z"/><path d="M8 8V6a4 4 0 1 1 8 0v2"/></svg></b><span>BURGER DE VERDADE</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9a8 8 0 0 1 16 0Z"/><path d="M3 13h18M4 17h16l-1 3H5Z"/><path d="M9 5h.01M14 5h.01"/></svg></b></div>
  </div></div>
  <footer class="footer container">
   <div class="footer-copy"><strong>Feito pra quem gosta de comer bem.</strong><span>Burdega Hamburgueria • <span data-year>2026</span></span></div>
