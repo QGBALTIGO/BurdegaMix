@@ -6,6 +6,7 @@ for (const width of [320, 390, 768, 1440]) {
     const errors = []
     page.on('pageerror', error => errors.push(error.message))
     await page.setViewportSize({ width, height: width < 640 ? 844 : 1000 })
+    await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     const hero = page.locator('.hero-photo-frame img')
@@ -17,10 +18,20 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('.quick-maps')).toHaveAttribute('href', /google\.com\/maps/)
     await expect(page.locator('.quick-instagram')).toHaveAttribute('href', /burdegahamburgueria/)
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy()
-    for (const target of ['#sabores', '#burdega', '#encontre']) { await page.locator(target).scrollIntoViewIfNeeded(); await expect(page.locator(target)).toBeVisible() }
+    // Exercise the real pause control before a full-page screenshot. This also
+    // exposes every section if the CI browser does not emulate media features.
+    const pause = page.getByRole('button', { name: 'Pausar animações' })
+    if (await pause.count()) await pause.click()
+    await expect(page.locator('.site')).toHaveClass(/motion-paused/)
+    for (const target of ['#sabores', '#burdega', '#encontre', '.delivery-card']) {
+      await page.locator(target).scrollIntoViewIfNeeded()
+      await expect(page.locator(target)).toBeVisible()
+      await expect(page.locator(target)).toHaveCSS('opacity', '1')
+    }
     for (const img of await page.locator('.product-photo img').all()) await expect.poll(() => img.evaluate(element => element.complete && element.naturalWidth > 0)).toBeTruthy()
-    await page.evaluate(() => window.scrollTo(0, 0))
     await page.evaluate(() => document.fonts.ready)
+    await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo({ top: 0, behavior: 'instant' }) })
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
     await mkdir('test-results/previews', { recursive: true })
     await page.screenshot({ path: `test-results/previews/burdega-${width}.png`, fullPage: true, animations: 'disabled' })
     expect(errors).toEqual([])
@@ -58,6 +69,7 @@ test('3D loads only on demand and responds to accessible controls', async ({ pag
   await page.getByRole('button', { name: 'Separar camadas' }).click()
   await expect(page.getByRole('button', { name: 'Juntar camadas' })).toHaveAttribute('aria-pressed', 'true')
   await page.getByRole('button', { name: 'Girar hambúrguer para a direita' }).click()
+  await mkdir('test-results/previews', { recursive: true })
   await page.screenshot({ path: 'test-results/previews/burdega-3d.png', animations: 'disabled' })
   await page.getByRole('button', { name: 'Foto real' }).click()
   await expect(page.locator('canvas')).toHaveCount(0)

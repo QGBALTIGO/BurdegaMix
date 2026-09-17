@@ -1,0 +1,40 @@
+/* Keep sticky navigation attached to the viewport, not an overflow scrollbox. */
+.site { overflow: clip; }
+
+/* The skip link is visually hidden until focused, including in full-page captures. */
+.skip-link {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  transform: none;
+}
+.skip-link:focus {
+  width: auto;
+  height: auto;
+  padding: 15px;
+  overflow: visible;
+  clip-path: none;
+}
+
+/* Comfortable targets for touch and visible focus on both dark/yellow surfaces. */
+.visual-controls button, .scene-controls button, .footer-actions a, .footer-actions button {
+  min-height: 44px;
+}
+.last-call a:focus-visible { outline-color: #11120d; }
+html:has(.motion-paused) { scroll-behavior: auto; }
+
+@media (max-width: 640px) {
+  .hero-description { font-size: 14px; }
+  .hero-location { font-size: 10px; }
+  .quick-copy strong { font-size: 12px; }
+  .quick-copy small { font-size: 10px; }
+  .product-info > p { font-size: 12px; }
+  .product-info > .text-link { font-size: 10px; }
+  .menu-note { font-size: 11px; }
+  .about-content > p:not(.eyebrow) { font-size: 13px; }
+  .location-card address, .delivery-card > p, .hours, .hours > p { font-size: 12px; }
+  .footer > p, .footer-actions a, .footer-actions button { font-size: 10px; }
+}
