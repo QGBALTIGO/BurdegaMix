@@ -187,3 +187,131 @@
     observer.observe(primary);
   }
 })();
+
+/* Continuous scrolling for the existing red ribbon only. */
+(() => {
+  'use strict';
+  const ribbon = document.querySelector('.ticker');
+  const original = ribbon?.querySelector('.ticker-content');
+  if (!ribbon || !original || ribbon.querySelector('.ticker-track')) return;
+
+  const description = ribbon.getAttribute('aria-label') || original.textContent.trim();
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const track = document.createElement('div');
+  track.className = 'ticker-track';
+  track.style.cssText = 'display:flex;width:max-content;max-width:none;';
+  original.style.flex = '0 0 auto';
+  original.style.minWidth = '0';
+  original.style.justifyContent = 'flex-start';
+  ribbon.replaceChild(track, original);
+  track.appendChild(original);
+  ribbon.tabIndex = 0;
+  ribbon.style.outlineOffset = '-5px';
+
+  let animation = null;
+  let userPaused = false;
+  let hovered = false;
+  let inView = true;
+  let signature = '';
+  let frame = 0;
+  const manualMode = () => reducedMotion.matches || typeof track.animate !== 'function';
+  const updatePlayback = () => {
+    if (animation) {
+      if (userPaused || hovered || !inView || document.hidden) animation.pause();
+      else animation.play();
+    }
+    if (!manualMode()) {
+      const action = userPaused ? 'Retomar' : 'Pausar';
+      ribbon.setAttribute('role', 'button');
+      ribbon.setAttribute('aria-label', `${action} rolagem da faixa. ${description}.`);
+      ribbon.title = `${action} rolagem: toque ou pressione Enter.`;
+    }
+  };
+
+  const layout = () => {
+    frame = 0;
+    const manual = manualMode();
+    const gap = parseFloat(getComputedStyle(original).columnGap) || 0;
+    // Half a gap at each edge makes the boundary identical to every other gap.
+    original.style.paddingInline = `${gap / 2}px`;
+    const width = parseFloat(getComputedStyle(original).width);
+    const viewport = ribbon.clientWidth;
+    if (!Number.isFinite(width) || width <= 0 || viewport <= 0) return;
+    const next = `${width}|${viewport}|${gap}|${manual}`;
+    if (next === signature) return;
+    signature = next;
+
+    const progress = animation?.effect.getComputedTiming().progress || 0;
+    animation?.cancel();
+    animation = null;
+    track.replaceChildren(original);
+    ribbon.scrollLeft = 0;
+    ribbon.style.overflowX = manual ? 'auto' : 'hidden';
+    ribbon.style.scrollbarWidth = 'none';
+    ribbon.style.cursor = manual ? 'auto' : 'pointer';
+    track.style.willChange = manual ? 'auto' : 'transform';
+
+    if (manual) {
+      ribbon.setAttribute('role', 'region');
+      ribbon.setAttribute('aria-label', `${description}. Deslize para ver todos os itens.`);
+      ribbon.title = 'Deslize para ver todos os itens.';
+      return;
+    }
+
+    // Enough identical groups for a seamless loop, including very wide screens.
+    const copies = Math.ceil(viewport / width) + 1;
+    for (let i = 0; i < copies; i += 1) {
+      const copy = original.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      copy.setAttribute('inert', '');
+      track.appendChild(copy);
+    }
+    const duration = width / 36 * 1000; // Constant, readable speed: 36 CSS px/s.
+    animation = track.animate(
+      [{ transform: 'translateX(0)' }, { transform: `translateX(-${width}px)` }],
+      { duration, iterations: Infinity, easing: 'linear' }
+    );
+    animation.currentTime = progress * duration;
+    updatePlayback();
+  };
+  const scheduleLayout = () => {
+    if (!frame) frame = requestAnimationFrame(layout);
+  };
+  const toggle = () => {
+    if (manualMode()) return;
+    userPaused = !userPaused;
+    updatePlayback();
+  };
+  ribbon.addEventListener('click', toggle);
+  ribbon.addEventListener('keydown', (event) => {
+    if (!manualMode() && !event.repeat && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      toggle();
+    }
+  });
+  ribbon.addEventListener('pointerenter', (event) => {
+    if (event.pointerType === 'mouse') { hovered = true; updatePlayback(); }
+  });
+  ribbon.addEventListener('pointerleave', () => { hovered = false; updatePlayback(); });
+  document.addEventListener('visibilitychange', updatePlayback);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      updatePlayback();
+    }).observe(ribbon);
+  }
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(scheduleLayout);
+    observer.observe(ribbon);
+    observer.observe(original);
+  } else {
+    window.addEventListener('resize', scheduleLayout, { passive: true });
+  }
+  if (typeof reducedMotion.addEventListener === 'function') {
+    reducedMotion.addEventListener('change', scheduleLayout);
+  } else {
+    reducedMotion.addListener(scheduleLayout);
+  }
+  document.fonts?.ready.then(scheduleLayout);
+  layout();
+})();
