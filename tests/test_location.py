@@ -30,7 +30,7 @@ class LocationTests(unittest.TestCase):
     def test_changed_source_detects_stale_html(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td)
-            for name in ['index.html','location.json','recovery.js']:shutil.copy(ROOT/name,root/name)
+            for name in ['index.html','styles.css','location.json','recovery.js']:shutil.copy(ROOT/name,root/name)
             shutil.copytree(ROOT/'templates',root/'templates')
             shutil.copytree(ROOT/'styles',root/'styles')
             self.data['address']['number']='999'

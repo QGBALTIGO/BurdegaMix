@@ -24,8 +24,8 @@
     const url = safeUrl(config.links?.[link.dataset.link]);
     if (url) link.href = url;
   });
-  // Load the public original logo only on a hosted page. The small supporting
-  // SVG keeps the local preview independent of any external image service.
+  // Optional remote override (disabled by default). The approved local WebP
+  // in the HTML remains the normal logo and the fallback for this override.
   if (config.logo?.loadRemoteWhenHosted && /^https?:$/.test(location.protocol)) {
     const url = safeUrl(config.logo.url);
     const host = $('.brand-mark');
@@ -57,7 +57,7 @@
     const field = document.createElement('textarea');
     field.value = text;
     field.setAttribute('readonly', '');
-    field.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
+    field.className = 'clipboard-helper';
     const parent = $('dialog[open]') || document.body;
     const previous = document.activeElement;
     parent.appendChild(field);
@@ -166,7 +166,7 @@
       $('#share-help').textContent = 'Seu navegador bloqueou a cópia. O link foi selecionado: copie manualmente.';
     }
   });
-  // The compact order bar appears after the illustrated welcome card leaves the screen.
+  // The compact order bar appears after the welcome card leaves the screen.
   const primary = $('.poster');
   const dock = $('.mobile-dock');
   if (primary && dock && 'IntersectionObserver' in window) {
@@ -192,21 +192,13 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const track = document.createElement('div');
   track.className = 'ticker-track';
-  track.style.cssText = 'display:flex;width:max-content;max-width:none;';
-  original.style.flex = '0 0 auto';
-  original.style.minWidth = '0';
-  original.style.justifyContent = 'flex-start';
-  original.style.backfaceVisibility = 'hidden';
-  original.style.webkitBackfaceVisibility = 'hidden';
+  ribbon.classList.add('ticker--enhanced');
   original.querySelectorAll('.ticker-symbol > svg').forEach((icon) => {
     icon.setAttribute('shape-rendering', 'geometricPrecision');
   });
-  // One CSS pixel of alpha at the slanted edges; do not blur the text or icons.
-  ribbon.style.background = 'linear-gradient(to bottom, transparent 0, var(--red) 1px, var(--red) calc(100% - 1px), transparent 100%)';
   ribbon.replaceChild(track, original);
   track.appendChild(original);
   ribbon.tabIndex = 0;
-  ribbon.style.outlineOffset = '-5px';
 
   let animations = [];
   let userPaused = false;
@@ -246,7 +238,7 @@
     const manual = manualMode();
     const gap = parseFloat(getComputedStyle(original).columnGap) || 0;
     // Half a gap at each edge makes the boundary identical to every other gap.
-    original.style.paddingInline = `${gap / 2}px`;
+    original.style.setProperty('--ticker-half-gap', `${gap / 2}px`);
     const width = parseFloat(getComputedStyle(original).width);
     const viewport = ribbon.clientWidth;
     if (!Number.isFinite(width) || width <= 0 || viewport <= 0) return;
@@ -257,14 +249,10 @@
     const progress = animations[0]?.effect.getComputedTiming().progress || 0;
     animations.forEach((item) => item.cancel());
     animations = [];
-    original.style.willChange = 'auto';
+    original.classList.remove('ticker-group--animated');
     track.replaceChildren(original);
     ribbon.scrollLeft = 0;
-    ribbon.style.overflowX = manual ? 'auto' : 'hidden';
-    ribbon.style.scrollbarWidth = 'none';
-    ribbon.style.cursor = manual ? 'auto' : 'pointer';
-    // Keep the full repeated track unpromoted: it can be wider than a mobile texture.
-    track.style.willChange = 'auto';
+    ribbon.classList.toggle('ticker--manual', manual);
 
     if (manual) {
       ribbon.setAttribute('role', 'region');
@@ -286,7 +274,7 @@
     // Animate each group, not a giant bitmap of the entire repeated track.
     // Only translate at native scale; never enlarge rasterized text or round frames.
     animations = [...track.children].map((group) => {
-      group.style.willChange = 'transform';
+      group.classList.add('ticker-group--animated');
       const item = group.animate(
         [{ transform: 'translate3d(0,0,0)' }, { transform: `translate3d(-${width}px,0,0)` }],
         { duration, iterations: Infinity, easing: 'linear' }
@@ -343,26 +331,8 @@
 (() => {
   'use strict';
   const image = document.querySelector('.poster-art--photo .burger-art');
-  if (!image || document.getElementById('burger-touch-effects')) return;
+  if (!image || image.classList.contains('burger-interactive')) return;
 
-  const style = document.createElement('style');
-  style.id = 'burger-touch-effects';
-  style.textContent = `
-    .poster .poster-art--photo .burger-art.burger-interactive {
-      filter: drop-shadow(0 0 7px #1414122e) drop-shadow(0 9px 7px #14141226);
-      transform: rotate(-10deg);
-      transition: none;
-      cursor: pointer;
-      -webkit-user-drag: none;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-    .poster .poster-art--photo .burger-art.burger-interactive:focus-visible {
-      outline: 2px solid var(--red);
-      outline-offset: 4px;
-    }
-  `;
-  document.head.appendChild(style);
   image.classList.add('burger-interactive');
   image.draggable = false;
   if (typeof image.animate !== 'function') return;
@@ -372,13 +342,13 @@
   let animation = null;
 
   const play = (keyframes, duration) => {
-    image.style.willChange = 'transform';
+    image.classList.add('burger-is-animating');
     const current = image.animate(keyframes, { duration, easing: 'linear', iterations: 1 });
     animation = current;
     const cleanup = () => {
       if (animation !== current) return;
       animation = null;
-      image.style.removeProperty('will-change');
+      image.classList.remove('burger-is-animating');
     };
     current.onfinish = cleanup;
     current.oncancel = cleanup;
@@ -399,7 +369,7 @@
     const previous = animation;
     animation = null;
     previous.cancel();
-    image.style.removeProperty('will-change');
+    image.classList.remove('burger-is-animating');
     if (gently && !reducedMotion.matches && !document.hidden) {
       play([
         { transform: from, easing: 'ease-out' },
@@ -414,7 +384,6 @@
     if (reducedMotion.matches) reset();
     image.tabIndex = reducedMotion.matches ? -1 : 0;
     image.setAttribute('aria-disabled', String(reducedMotion.matches));
-    image.style.cursor = reducedMotion.matches ? 'default' : 'pointer';
   };
   // Passive pointer listeners keep native scrolling and pinch-to-zoom available.
   // Touch entry/down covers a tap or a finger passing over the photo; mouse entry

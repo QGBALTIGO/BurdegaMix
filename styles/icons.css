@@ -1,0 +1,14 @@
+/* Decorative icons use the existing typography scale and inherited colors. */
+.tiny-star, .ticker-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  letter-spacing: 0;
+}
+.tiny-star > svg, .ticker-symbol > svg {
+  width: 100%;
+  height: 100%;
+}

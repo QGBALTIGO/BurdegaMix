@@ -1,0 +1,59 @@
+/* Only the existing burger area: same photo, a larger fit and a gentle tilt. */
+.poster-art--photo .sun-disc {
+  background: var(--red);
+  top: 7%;
+  left: 50%;
+  width: auto;
+  height: 92%;
+  transform: translateX(-50%);
+}
+.poster-art--photo .burger-art {
+  top: 0;
+  left: 3%;
+  width: 94%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 50%;
+  transform: rotate(-10deg);
+  animation: none;
+  filter: drop-shadow(0 9px 7px #14141226);
+  z-index: 1;
+}
+.poster:hover .poster-art--photo .burger-art {
+  transform: rotate(-11.5deg) translateY(-3px);
+}
+.burger-accents {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  pointer-events: none;
+  z-index: 0;
+}
+.burger-accents .spark { fill: var(--red); }
+@media (min-width: 761px) and (max-width: 1099px) {
+  .poster-art--photo .burger-art { left: 11%; width: 78%; top: 6%; height: 88%; }
+  .poster-art--photo .sun-disc { top: 12%; height: 76%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .poster:hover .poster-art--photo .burger-art { transform: rotate(-10deg); }
+}
+
+/* Applied only once the existing interaction enhancement is ready. */
+.poster .poster-art--photo .burger-art.burger-interactive {
+  filter: drop-shadow(0 0 7px #1414122e) drop-shadow(0 9px 7px #14141226);
+  transform: rotate(-10deg);
+  transition: none;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.poster .poster-art--photo .burger-art.burger-interactive:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.burger-art.burger-is-animating { will-change: transform; }
+.poster .poster-art--photo .burger-art.burger-interactive[aria-disabled="true"] { cursor: default; }

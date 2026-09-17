@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="no-js">
 <head>
+ <script>document.documentElement.classList.remove('no-js');</script>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
  <meta name="color-scheme" content="dark light">
@@ -14,204 +15,9 @@
  <title>Burdega • Sua fome tem endereço.</title>
  <link rel="icon" type="image/svg+xml" href="assets/marca-apoio.svg">
  <link rel="preload" as="image" href="assets/burger-640.webp" type="image/webp" fetchpriority="high">
- <style id="image-loading-state">.burger-art.media-pending { opacity: 0; }</style>
- <link rel="stylesheet" href="styles.css">
- <style id="system-appearance">
-/* System appearance only. Keep the existing artwork and brand colors fixed;
-   never invert --ink/--cream, since they also paint the poster and buttons. */
-:root {
-  color-scheme: dark;
-  color-scheme: only dark;
-  background: var(--ink);
-}
-/* These original light surfaces stay light within the dark page. */
-.poster, .action-menu, .action-whatsapp, .dialog, .toast, .mobile-dock a {
-  color-scheme: light;
-  color-scheme: only light;
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    color-scheme: light;
-    color-scheme: only light;
-    background: #fffaf0;
-    --line: #d6d0c2;
-    --muted: #5d5d52;
-  }
-  body {
-    background: #fffaf0;
-    color: var(--ink);
-  }
-  .share-button:hover, .copy-address:hover {
-    background: var(--cream);
-  }
-  .utility:hover, .copy-address:hover, .footer-socials a:hover,
-  .label-light, .small-top > .icon:first-child {
-    color: var(--red);
-  }
-  .action-small {
-    background: var(--cream);
-  }
-  .action-small:hover {
-    background: #efe8d7;
-  }
-  .address-bar > .icon {
-    color: var(--muted);
-  }
-  .mobile-dock {
-    background: #fffaf0e8;
-    border-top-color: #14141222;
-  }
-}
- </style>
- <style id="burger-photo-composition">
-/* Only the existing burger area: same photo, a larger fit and a gentle tilt. */
-.poster-art--photo .sun-disc {
-  background: var(--red);
-  top: 7%;
-  left: 50%;
-  width: auto;
-  height: 92%;
-  transform: translateX(-50%);
-}
-.poster-art--photo .burger-art {
-  top: 0;
-  left: 3%;
-  width: 94%;
-  height: 100%;
-  object-fit: contain;
-  transform-origin: 50% 50%;
-  transform: rotate(-10deg);
-  animation: none;
-  filter: drop-shadow(0 9px 7px #14141226);
-  z-index: 1;
-}
-.poster:hover .poster-art--photo .burger-art {
-  transform: rotate(-11.5deg) translateY(-3px);
-}
-.burger-accents {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--ink);
-  pointer-events: none;
-  z-index: 0;
-}
-.burger-accents .spark { fill: var(--red); }
-@media (min-width: 761px) and (max-width: 1099px) {
-  .poster-art--photo .burger-art { left: 11%; width: 78%; top: 6%; height: 88%; }
-  .poster-art--photo .sun-disc { top: 12%; height: 76%; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .poster:hover .poster-art--photo .burger-art { transform: rotate(-10deg); }
-}
- </style>
- <style id="food-icons">
-/* Decorative icons use the existing typography scale and inherited colors. */
-.tiny-star, .ticker-symbol {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1em;
-  height: 1em;
-  flex: 0 0 auto;
-  letter-spacing: 0;
-}
-.tiny-star > svg, .ticker-symbol > svg {
-  width: 100%;
-  height: 100%;
-}
- </style>
- <style id="location-card-style">
-/* Replace the old address row with one map card. Preserve the hero's first-row
-   height on desktop by retaining only the old address row's occupied space. */
-.location-card {
-  grid-column: 2;
-  min-width: 0;
-  margin-top: -76px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--ink-soft);
-  color: var(--cream);
-  box-shadow: 0 8px 24px #00000014;
-}
-.location-card-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 18px;
-  border-bottom: 1px solid var(--line);
-}
-.location-card-copy { min-width: 0; }
-.location-card h2 {
-  margin: 0 0 7px;
-  font-family: var(--display);
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -.5px;
-}
-.location-card-copy p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.7; }
-.location-card-copy strong { font-weight: 500; }
-.location-card .copy-address {
-  width: 44px;
-  height: 44px;
-  flex: 0 0 44px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--ink);
-  color: var(--yellow);
-  transition: background .2s, color .2s;
-}
-.location-card .copy-address .icon { width: 19px; height: 19px; }
-.location-card .copy-address:hover { background: var(--yellow); color: var(--ink); }
-.location-card-frame {
-  display: block;
-  width: 100%;
-  height: 250px;
-  border: 0;
-  background: #f0eee8;
-  color-scheme: light;
-  color-scheme: only light;
-}
-.location-card-open {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 44px;
-  padding: 12px 18px;
-  border-top: 1px solid var(--line);
-  color: var(--yellow);
-  font-size: 11px;
-  font-weight: 700;
-  transition: background .2s;
-}
-.location-card-open .icon { width: 15px; height: 15px; }
-.location-card-open:hover { background: var(--ink); }
-.location-card-open:focus-visible { outline-offset: -4px; }
-@media (min-width: 761px) {
-  .main--location > .links-panel { padding-bottom: 56px; }
-}
-@media (min-width: 761px) and (max-width: 1099px) {
-  .location-card { margin-top: -61px; }
-}
-@media (max-width: 760px) {
-  .location-card { grid-column: 1; margin-top: -9px; }
-  .location-card-heading { padding: 16px; gap: 12px; }
-  .location-card-frame { height: 230px; }
-  .location-card-open { padding-inline: 16px; }
-}
-@media (prefers-color-scheme: light) {
-  .location-card { background: var(--cream); color: var(--ink); box-shadow: 0 6px 20px #1414120a; }
-  .location-card .copy-address { background: #fffaf0; color: var(--ink); }
-  .location-card .copy-address:hover { background: var(--yellow); }
-  .location-card-open { color: var(--red); }
-  .location-card-open:hover { background: #efe8d7; }
-}
- </style>
+ <!-- styles:bundle:start -->
+<link rel="stylesheet" href="styles.css?v=0c5c293c068c">
+<!-- styles:bundle:end -->
 <!-- location:data:start -->
 <script id="location-data" type="application/json">{"name":"Burdega Hamburgueria","placeId":"ChIJq174ymGzowcR7KFL73d2ssU","cid":"14245578828814197228","address":{"short":"Rua Padre José Alves, 105 • Centro","full":"Rua Padre José Alves, 105, Centro, Várzea Alegre - CE","cityLabel":"Várzea Alegre, Ceará"},"mapsUrl":"https://www.google.com/maps/search/?api=1\u0026query=Burdega+Hamburgueria%2C+Rua+Padre+Jos%C3%A9+Alves%2C+105%2C+Centro%2C+V%C3%A1rzea+Alegre+-+CE\u0026query_place_id=ChIJq174ymGzowcR7KFL73d2ssU","embedUrl":"https://www.google.com/maps/embed?origin=mfe\u0026pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR","mapTitle":"Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE"}</script>
 <!-- location:data:end -->
@@ -253,17 +59,21 @@
   .map-retry { color: var(--red); }
   .map-retry:hover { background: #efe8d7; }
 }
+
+/* The selection fallback must also work without either external script. */
+.clipboard-helper { position: fixed; left: -9999px; top: 0; opacity: 0; }
+.no-js .location-card-frame[data-map-src] { display: none; }
 </style>
 <!-- recovery:style:end -->
  <script src="config.js?v=location-20260917" defer></script>
- <script src="script.js?v=recovery-20260917" defer></script>
+ <script src="script.js?v=organization-20260917" defer></script>
 </head>
 <body>
  <a href="#seus-links" class="skip-link">Ir para os links</a>
  <div class="topline" aria-hidden="true"></div>
  <header class="header container">
   <a class="brand" href="#inicio" aria-label="Burdega, início">
-   <span class="brand-mark" style="background:transparent;border-radius:0"><img class="logo-fallback" src="assets/logo-burdega.webp" width="52" height="52" alt="" referrerpolicy="no-referrer" style="object-fit:contain"></span>
+   <span class="brand-mark brand-mark--transparent"><img class="logo-fallback" src="assets/logo-burdega.webp" width="52" height="52" alt="" referrerpolicy="no-referrer"></span>
    <span class="brand-type"><strong>burdega.</strong><small>HAMBURGUERIA ARTESANAL</small></span>
   </a>
   <nav class="header-nav" aria-label="Navegação principal">
@@ -321,7 +131,7 @@
    <div class="location-map" data-map-state="idle">
     <iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="about:blank" data-map-src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <div class="map-load-status" data-map-status role="status" aria-live="polite" hidden>Carregando mapa…</div>
-    <noscript><style>.location-card-frame[data-map-src] { display: none; }</style><iframe class="location-card-frame" name="burdega-map" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></noscript>
+    <noscript><iframe class="location-card-frame" name="burdega-map" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></noscript>
    </div>
    <div class="location-card-actions">
    <a class="location-card-open" href="https://www.google.com/maps/search/?api=1&amp;query=Burdega+Hamburgueria%2C+Rua+Padre+Jos%C3%A9+Alves%2C+105%2C+Centro%2C+V%C3%A1rzea+Alegre+-+CE&amp;query_place_id=ChIJq174ymGzowcR7KFL73d2ssU" target="_blank" rel="noopener noreferrer" data-link="maps" aria-label="Abrir a localização da Burdega no Google Maps em uma nova aba"><span>Abrir no Google Maps</span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></a>
@@ -376,7 +186,7 @@
     const field = document.createElement('textarea');
     field.value = text;
     field.readOnly = true;
-    field.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+    field.className = 'clipboard-helper';
     const previous = document.activeElement;
     (document.querySelector('dialog[open]') || document.body).appendChild(field);
     field.select();

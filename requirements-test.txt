@@ -1,0 +1,2 @@
+# Development / CI only. Not used by the public website.
+playwright==1.57.0

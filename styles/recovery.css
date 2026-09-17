@@ -34,3 +34,7 @@
   .map-retry { color: var(--red); }
   .map-retry:hover { background: #efe8d7; }
 }
+
+/* The selection fallback must also work without either external script. */
+.clipboard-helper { position: fixed; left: -9999px; top: 0; opacity: 0; }
+.no-js .location-card-frame[data-map-src] { display: none; }

@@ -1,0 +1,88 @@
+/* Replace the old address row with one map card. Preserve the hero's first-row
+   height on desktop by retaining only the old address row's occupied space. */
+.location-card {
+  grid-column: 2;
+  min-width: 0;
+  margin-top: -76px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-soft);
+  color: var(--cream);
+  box-shadow: 0 8px 24px #00000014;
+}
+.location-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.location-card-copy { min-width: 0; }
+.location-card h2 {
+  margin: 0 0 7px;
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -.5px;
+}
+.location-card-copy p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.7; }
+.location-card-copy strong { font-weight: 500; }
+.location-card .copy-address {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--yellow);
+  transition: background .2s, color .2s;
+}
+.location-card .copy-address .icon { width: 19px; height: 19px; }
+.location-card .copy-address:hover { background: var(--yellow); color: var(--ink); }
+.location-card-frame {
+  display: block;
+  width: 100%;
+  height: 250px;
+  border: 0;
+  background: #f0eee8;
+  color-scheme: light;
+  color-scheme: only light;
+}
+.location-card-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--yellow);
+  font-size: 11px;
+  font-weight: 700;
+  transition: background .2s;
+}
+.location-card-open .icon { width: 15px; height: 15px; }
+.location-card-open:hover { background: var(--ink); }
+.location-card-open:focus-visible { outline-offset: -4px; }
+@media (min-width: 761px) {
+  .main--location > .links-panel { padding-bottom: 56px; }
+}
+@media (min-width: 761px) and (max-width: 1099px) {
+  .location-card { margin-top: -61px; }
+}
+@media (max-width: 760px) {
+  .location-card { grid-column: 1; margin-top: -9px; }
+  .location-card-heading { padding: 16px; gap: 12px; }
+  .location-card-frame { height: 230px; }
+  .location-card-open { padding-inline: 16px; }
+}
+@media (prefers-color-scheme: light) {
+  .location-card { background: var(--cream); color: var(--ink); box-shadow: 0 6px 20px #1414120a; }
+  .location-card .copy-address { background: #fffaf0; color: var(--ink); }
+  .location-card .copy-address:hover { background: var(--yellow); }
+  .location-card-open { color: var(--red); }
+  .location-card-open:hover { background: #efe8d7; }
+}

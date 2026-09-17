@@ -1,0 +1,27 @@
+/* Activated only by the ribbon enhancement; the no-JS ribbon is unchanged. */
+.ticker.ticker--enhanced {
+  /* One alpha pixel smooths the slanted edges without blurring text or SVGs. */
+  background: linear-gradient(to bottom, transparent 0, var(--red) 1px, var(--red) calc(100% - 1px), transparent 100%);
+  outline-offset: -5px;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  cursor: pointer;
+}
+.ticker--enhanced .ticker-track {
+  display: flex;
+  width: max-content;
+  max-width: none;
+  /* Never promote the entire repeated strip to a large mobile texture. */
+  will-change: auto;
+}
+.ticker--enhanced .ticker-content {
+  flex: 0 0 auto;
+  min-width: 0;
+  justify-content: flex-start;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  padding-inline: var(--ticker-half-gap, 0px);
+  will-change: auto;
+}
+.ticker--enhanced .ticker-group--animated { will-change: transform; }
+.ticker.ticker--manual { overflow-x: auto; cursor: auto; }

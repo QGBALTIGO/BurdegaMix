@@ -25,7 +25,7 @@
     const field = document.createElement('textarea');
     field.value = text;
     field.readOnly = true;
-    field.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+    field.className = 'clipboard-helper';
     const previous = document.activeElement;
     (document.querySelector('dialog[open]') || document.body).appendChild(field);
     field.select();

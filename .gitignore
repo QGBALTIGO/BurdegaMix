@@ -7,3 +7,7 @@ __pycache__/
 node_modules/
 # Cópia opcional gerada localmente; o site usa os arquivos separados.
 /burdega.html
+
+# Local test dependencies and reports
+.venv/
+test-results/

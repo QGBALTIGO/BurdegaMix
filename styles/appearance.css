@@ -1,0 +1,49 @@
+/* System appearance only. Keep the existing artwork and brand colors fixed;
+   never invert --ink/--cream, since they also paint the poster and buttons. */
+:root {
+  color-scheme: dark;
+  color-scheme: only dark;
+  background: var(--ink);
+}
+/* These original light surfaces stay light within the dark page. */
+.poster, .action-menu, .action-whatsapp, .dialog, .toast, .mobile-dock a {
+  color-scheme: light;
+  color-scheme: only light;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    color-scheme: only light;
+    background: #fffaf0;
+    --line: #d6d0c2;
+    --muted: #5d5d52;
+  }
+  body {
+    background: #fffaf0;
+    color: var(--ink);
+  }
+  .share-button:hover, .copy-address:hover {
+    background: var(--cream);
+  }
+  .utility:hover, .copy-address:hover, .footer-socials a:hover,
+  .label-light, .small-top > .icon:first-child {
+    color: var(--red);
+  }
+  .action-small {
+    background: var(--cream);
+  }
+  .action-small:hover {
+    background: #efe8d7;
+  }
+  .address-bar > .icon {
+    color: var(--muted);
+  }
+  .mobile-dock {
+    background: #fffaf0e8;
+    border-top-color: #14141222;
+  }
+}
+
+/* Approved transparent symbol; wordmark and responsive dimensions are unchanged. */
+.brand-mark.brand-mark--transparent { background: transparent; border-radius: 0; }
+.brand-mark--transparent .logo-fallback { object-fit: contain; }
