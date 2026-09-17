@@ -11,8 +11,8 @@
 window.BURDEGA_CONFIG = {
   "brand": "Burdega Hamburgueria",
   "logo": {
-    "loadRemoteWhenHosted": true,
-    "url": "https://ugc.production.linktr.ee/bWlHP1qBT42NM6PQbADk_0001-6067873187264833697.png?io=true&size=avatar-v3_0"
+    "loadRemoteWhenHosted": false,
+    "url": "https://i.ibb.co/ZjKVxwt/AC143-FC4-9-B27-4412-A851-DF1-B3-D5-FD98-E.png"
   },
   "links": {
     "menu": "https://burdegamix.pedizap.com.br/",
