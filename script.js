@@ -345,3 +345,111 @@
   document.fonts?.ready.then(scheduleLayout);
   layout();
 })();
+
+/* Soft contour shadow and brief pointer feedback for the burger photo only. */
+(() => {
+  'use strict';
+  const image = document.querySelector('.poster-art--photo .burger-art');
+  if (!image || document.getElementById('burger-touch-effects')) return;
+
+  const style = document.createElement('style');
+  style.id = 'burger-touch-effects';
+  style.textContent = `
+    .poster .poster-art--photo .burger-art.burger-interactive {
+      filter: drop-shadow(0 0 7px #1414122e) drop-shadow(0 9px 7px #14141226);
+      transform: rotate(-10deg);
+      transition: none;
+      cursor: pointer;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .poster .poster-art--photo .burger-art.burger-interactive:focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 4px;
+    }
+  `;
+  document.head.appendChild(style);
+  image.classList.add('burger-interactive');
+  image.draggable = false;
+  if (typeof image.animate !== 'function') return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const restingTransform = 'rotate(-10deg)';
+  let animation = null;
+
+  const play = (keyframes, duration) => {
+    image.style.willChange = 'transform';
+    const current = image.animate(keyframes, { duration, easing: 'linear', iterations: 1 });
+    animation = current;
+    const cleanup = () => {
+      if (animation !== current) return;
+      animation = null;
+      image.style.removeProperty('will-change');
+    };
+    current.onfinish = cleanup;
+    current.oncancel = cleanup;
+  };
+  const pulse = () => {
+    if (reducedMotion.matches || document.hidden || !image.complete || !image.naturalWidth) return;
+    // One short gesture at a time: no accumulated pulses on taps or pointer entry.
+    if (animation && animation.playState !== 'finished') return;
+    play([
+      { transform: restingTransform, offset: 0, easing: 'cubic-bezier(.22,.61,.36,1)' },
+      { transform: 'translateY(-2px) rotate(-11.5deg) scale(1.015)', offset: .35, easing: 'cubic-bezier(.22,.61,.36,1)' },
+      { transform: restingTransform, offset: 1 }
+    ], 560);
+  };
+  const reset = (gently = false) => {
+    if (!animation) return;
+    const from = getComputedStyle(image).transform;
+    const previous = animation;
+    animation = null;
+    previous.cancel();
+    image.style.removeProperty('will-change');
+    if (gently && !reducedMotion.matches && !document.hidden) {
+      play([
+        { transform: from, easing: 'ease-out' },
+        { transform: restingTransform }
+      ], 160);
+    }
+  };
+
+  image.setAttribute('role', 'button');
+  image.setAttribute('aria-label', 'Animar hambúrguer da Burdega');
+  const syncMotionPreference = () => {
+    if (reducedMotion.matches) reset();
+    image.tabIndex = reducedMotion.matches ? -1 : 0;
+    image.setAttribute('aria-disabled', String(reducedMotion.matches));
+    image.style.cursor = reducedMotion.matches ? 'default' : 'pointer';
+  };
+  // Passive pointer listeners keep native scrolling and pinch-to-zoom available.
+  // Touch entry/down covers a tap or a finger passing over the photo; mouse entry
+  // uses the same gentle pulse. There is no pointer capture or touch-action lock.
+  image.addEventListener('pointerenter', (event) => {
+    if (event.isPrimary) pulse();
+  }, { passive: true });
+  image.addEventListener('pointerdown', (event) => {
+    if (event.isPrimary && event.button === 0) pulse();
+  }, { passive: true });
+  image.addEventListener('pointercancel', () => reset(true), { passive: true });
+  image.addEventListener('click', (event) => {
+    if (event.detail === 0) pulse(); // Keyboard/assistive activation, without a double tap pulse.
+  });
+  image.addEventListener('keydown', (event) => {
+    if (!reducedMotion.matches && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      if (!event.repeat) pulse();
+    }
+  });
+  window.addEventListener('blur', () => reset());
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) reset();
+  });
+  if (typeof reducedMotion.addEventListener === 'function') {
+    reducedMotion.addEventListener('change', syncMotionPreference);
+  } else {
+    reducedMotion.addListener(syncMotionPreference);
+  }
+  syncMotionPreference();
+})();
