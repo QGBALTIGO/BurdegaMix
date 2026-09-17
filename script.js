@@ -203,12 +203,19 @@
   original.style.flex = '0 0 auto';
   original.style.minWidth = '0';
   original.style.justifyContent = 'flex-start';
+  original.style.backfaceVisibility = 'hidden';
+  original.style.webkitBackfaceVisibility = 'hidden';
+  original.querySelectorAll('.ticker-symbol > svg').forEach((icon) => {
+    icon.setAttribute('shape-rendering', 'geometricPrecision');
+  });
+  // One CSS pixel of alpha at the slanted edges; do not blur the text or icons.
+  ribbon.style.background = 'linear-gradient(to bottom, transparent 0, var(--red) 1px, var(--red) calc(100% - 1px), transparent 100%)';
   ribbon.replaceChild(track, original);
   track.appendChild(original);
   ribbon.tabIndex = 0;
   ribbon.style.outlineOffset = '-5px';
 
-  let animation = null;
+  let animations = [];
   let userPaused = false;
   let hovered = false;
   let inView = true;
@@ -216,9 +223,22 @@
   let frame = 0;
   const manualMode = () => reducedMotion.matches || typeof track.animate !== 'function';
   const updatePlayback = () => {
-    if (animation) {
-      if (userPaused || hovered || !inView || document.hidden) animation.pause();
-      else animation.play();
+    const paused = userPaused || hovered || !inView || document.hidden;
+    if (animations.length && animations.some((item) =>
+      item.playState !== (paused ? 'paused' : 'running') || item.pending)) {
+      // All short layers share one clock, including after pause/resume.
+      const time = animations[0].currentTime || 0;
+      const now = document.timeline.currentTime;
+      animations.forEach((item) => {
+        if (paused) {
+          item.pause();
+          item.currentTime = time;
+        } else {
+          item.play();
+          if (typeof now === 'number') item.startTime = now - time;
+          else item.currentTime = time;
+        }
+      });
     }
     if (!manualMode()) {
       const action = userPaused ? 'Retomar' : 'Pausar';
@@ -241,15 +261,17 @@
     if (next === signature) return;
     signature = next;
 
-    const progress = animation?.effect.getComputedTiming().progress || 0;
-    animation?.cancel();
-    animation = null;
+    const progress = animations[0]?.effect.getComputedTiming().progress || 0;
+    animations.forEach((item) => item.cancel());
+    animations = [];
+    original.style.willChange = 'auto';
     track.replaceChildren(original);
     ribbon.scrollLeft = 0;
     ribbon.style.overflowX = manual ? 'auto' : 'hidden';
     ribbon.style.scrollbarWidth = 'none';
     ribbon.style.cursor = manual ? 'auto' : 'pointer';
-    track.style.willChange = manual ? 'auto' : 'transform';
+    // Keep the full repeated track unpromoted: it can be wider than a mobile texture.
+    track.style.willChange = 'auto';
 
     if (manual) {
       ribbon.setAttribute('role', 'region');
@@ -259,19 +281,27 @@
     }
 
     // Enough identical groups for a seamless loop, including very wide screens.
-    const copies = Math.ceil(viewport / width) + 1;
+    const copies = Math.ceil(viewport / width);
     for (let i = 0; i < copies; i += 1) {
       const copy = original.cloneNode(true);
       copy.setAttribute('aria-hidden', 'true');
       copy.setAttribute('inert', '');
       track.appendChild(copy);
     }
-    const duration = width / 36 * 1000; // Constant, readable speed: 36 CSS px/s.
-    animation = track.animate(
-      [{ transform: 'translateX(0)' }, { transform: `translateX(-${width}px)` }],
-      { duration, iterations: Infinity, easing: 'linear' }
-    );
-    animation.currentTime = progress * duration;
+    const duration = width / 30 * 1000; // Gentler constant speed: 30 CSS px/s.
+    const now = document.timeline.currentTime;
+    // Animate each group, not a giant bitmap of the entire repeated track.
+    // Only translate at native scale; never enlarge rasterized text or round frames.
+    animations = [...track.children].map((group) => {
+      group.style.willChange = 'transform';
+      const item = group.animate(
+        [{ transform: 'translate3d(0,0,0)' }, { transform: `translate3d(-${width}px,0,0)` }],
+        { duration, iterations: Infinity, easing: 'linear' }
+      );
+      if (typeof now === 'number') item.startTime = now - progress * duration;
+      else item.currentTime = progress * duration;
+      return item;
+    });
     updatePlayback();
   };
   const scheduleLayout = () => {
