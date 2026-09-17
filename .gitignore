@@ -1,10 +1,9 @@
-node_modules/
-dist/
-.vercel/
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
 .env
 .env.*
-!.env.example
-playwright-report/
-test-results/
-.DS_Store
-*.log
+node_modules/
+# Cópia opcional gerada localmente; o site usa os arquivos separados.
+/burdega.html

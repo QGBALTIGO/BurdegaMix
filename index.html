@@ -1,25 +1,81 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0d0d0b" />
-    <meta name="description" content="Deu fome? Deu Burdega. Hamburgueria artesanal em Várzea Alegre, desde 2013. Acesse o cardápio, peça pelo WhatsApp e encontre a gente." />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:title" content="Burdega • Deu fome? Deu Burdega." />
-    <meta property="og:description" content="Hambúrguer artesanal, delivery e salão em Várzea Alegre. Seu próximo pedido começa aqui." />
-    <meta property="og:image" content="https://ugc.production.linktr.ee/bWlHP1qBT42NM6PQbADk_0001-6067873187264833697.png?io=true&amp;size=avatar-v3_0" />
-    <meta name="twitter:card" content="summary" />
-    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <title>Burdega • Hamburgueria Artesanal</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <noscript><div style="padding:32px;background:#0d0d0b;color:#fff;font-family:sans-serif"><h1>Burdega Hamburgueria Artesanal</h1><p>Desde 2013. Delivery e salão em Várzea Alegre, CE.</p><p><a style="color:#f6bd08" href="https://burdegamix.pedizap.com.br/">Abrir cardápio e fazer pedido</a></p><p><a style="color:#f6bd08" href="https://wa.me/5588998047212">Falar pelo WhatsApp</a></p><p>Rua Padre José Alves, 105 — Centro.</p></div></noscript>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="theme-color" content="#141412">
+ <meta name="description" content="Bateu a fome? Vem de Burdega. Cardápio, pedidos pelo WhatsApp e como chegar à Burdega Hamburgueria em Várzea Alegre.">
+ <meta property="og:type" content="website">
+ <meta property="og:locale" content="pt_BR">
+ <meta property="og:title" content="Burdega • Sua fome tem endereço.">
+ <meta property="og:description" content="Hamburgueria artesanal em Várzea Alegre. Escolha seu próximo pedido, fale com a gente e encontre a Burdega.">
+ <title>Burdega • Sua fome tem endereço.</title>
+ <link rel="icon" type="image/svg+xml" href="assets/marca-apoio.svg">
+ <link rel="stylesheet" href="styles.css">
+ <script src="config.js" defer></script>
+ <script src="script.js" defer></script>
+</head>
+<body>
+ <a href="#seus-links" class="skip-link">Ir para os links</a>
+ <div class="topline" aria-hidden="true"></div>
+ <header class="header container">
+  <a class="brand" href="#inicio" aria-label="Burdega, início">
+   <span class="brand-mark"><img class="logo-fallback" src="assets/marca-apoio.svg" width="52" height="52" alt=""></span>
+   <span class="brand-type"><strong>burdega.</strong><small>HAMBURGUERIA ARTESANAL</small></span>
+  </a>
+  <nav class="header-nav" aria-label="Navegação principal">
+   <span class="header-place"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg> Várzea Alegre, CE</span>
+   <button class="utility" type="button" data-open-hours aria-label="Consultar horários de atendimento"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> <span>Horários</span></button>
+   <button class="share-button" type="button" data-share aria-label="Compartilhar a página"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg></button>
+  </nav>
+ </header>
+ <main class="container main" id="inicio">
+  <section class="poster" aria-labelledby="hero-title">
+   <div class="poster-top"><span class="eyebrow"><span class="tiny-star">✳</span> ARTESANAL. DO NOSSO JEITO.</span><span class="edition">EST. 2013</span></div>
+   <h1 id="hero-title"><span>SUA FOME</span><span>TEM <em>ENDEREÇO.</em></span></h1>
+   <div class="poster-art">
+    <div class="sun-disc" aria-hidden="true"></div>
+    <span class="arc-label" aria-hidden="true">BATEU A FOME? JÁ SABE.</span>
+    <img class="burger-art" src="assets/burger-ilustrado.svg" alt="Ilustração decorativa de um hambúrguer artesanal" width="650" height="500" fetchpriority="high">
+    <span class="round-stamp" aria-label="Desde 2013"><span>FEITO COM</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><strong>DESDE 2013</strong></span>
+    <span class="poster-scribble" aria-hidden="true">é de dar<br>água na boca!</span>
+    <svg class="scribble-arrow" viewBox="0 0 90 80" fill="none" aria-hidden="true"><path d="M8 8C1 55 32 69 73 41M55 37l22 1-5 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </div>
+   <div class="poster-bottom"><span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16h11V6H2M14 10h4l3 4v2h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M1 10h7M2 13h5"/></svg> DELIVERY & SALÃO</span><span>VÁRZEA ALEGRE • CE</span></div>
+  </section>
+  <section class="links-panel" id="seus-links" aria-labelledby="links-title">
+   <div class="panel-heading"><span class="eyebrow label-light"><span class="status-dot"></span> CHEGA MAIS.</span><h2 id="links-title">Hoje é dia de <span>Burdega.</span></h2><p>Seu próximo pedido começa aqui.</p></div>
+   <a class="action-card action-menu" href="https://burdegamix.pedizap.com.br/" target="_blank" rel="noopener noreferrer" data-link="menu">
+    <div class="card-top"><span class="card-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9a8 8 0 0 1 16 0Z"/><path d="M3 13h18M4 17h16l-1 3H5Z"/><path d="M9 5h.01M14 5h.01"/></svg></span><span class="mini-label">BATEU A FOME?</span><svg class="icon card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+    <h3>Ver cardápio<br>e fazer meu pedido</h3>
+    <div class="card-bottom"><span>Escolha o seu e bora matar a fome.</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></div>
+   </a>
+   <a class="action-card action-whatsapp" href="https://wa.me/5588998047212?text=Oi%2C%20Burdega%21%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido.%20%F0%9F%8D%94" target="_blank" rel="noopener noreferrer" data-link="whatsapp">
+    <span class="card-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a9 9 0 0 1-13.3 8L3 21l1.5-4.7A9 9 0 1 1 21 11.5Z"/><path d="M8.5 7.5c0 4 4 8 8 8l1-2-3-1-.5 1c-1.5-.6-3-2.1-3.5-3.5l1-.5-1-3Z"/></svg></span><div class="card-copy"><h3>Chama no WhatsApp</h3><p>Pedidos e dúvidas, direto com a gente.</p></div><svg class="icon card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+   </a>
+   <div class="link-grid">
+    <a class="action-card action-small" href="https://www.google.com/maps/search/?api=1&query=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE" target="_blank" rel="noopener noreferrer" data-link="maps"><div class="small-top"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><svg class="icon card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></div><h3>Vem pra Burdega</h3><p>Encontre a gente no mapa.</p></a>
+    <a class="action-card action-small" href="https://www.instagram.com/burdegahamburgueria/" target="_blank" rel="noopener noreferrer" data-link="instagram"><div class="small-top"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><svg class="icon card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></div><h3>Olha esse feed</h3><p>Deu fome só de ver.</p></a>
+   </div>
+   <div class="address-bar"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><p><span data-address>Rua Padre José Alves, 105 • Centro</span><br><strong>Várzea Alegre, Ceará</strong></p><button type="button" class="copy-address" data-copy-address aria-label="Copiar endereço" title="Copiar endereço"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
+  </section>
+ </main>
+ <div class="ticker-wrap"><div class="ticker" aria-label="Hambúrgueres artesanais, salgados, sobremesas e combos">
+  <div class="ticker-content"><span>BURGER DE VERDADE</span><b>✳</b><span>SALGADOS</span><b>✳</b><span>SOBREMESAS</span><b>✳</b><span>COMBOS</span><b>✳</b><span>VEM DE BURDEGA</span><b>✳</b><span>BURGER DE VERDADE</span><b>✳</b></div>
+ </div></div>
+ <footer class="footer container">
+  <div class="footer-copy"><strong>Feito pra quem gosta de comer bem.</strong><span>Burdega Hamburgueria • <span data-year>2026</span></span></div>
+  <div class="footer-socials"><a href="https://www.tiktok.com/@burdega_mix" target="_blank" rel="noopener noreferrer" data-link="tiktok" aria-label="Burdega no TikTok"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.1 2h-3.8v13.3a2.8 2.8 0 1 1-2.4-2.8V8.6a6.6 6.6 0 1 0 6.2 6.6V8.5a9 9 0 0 0 5.2 1.7V6.4A5.2 5.2 0 0 1 15.1 2Z"/></svg><span>TikTok</span></a><a href="https://www.instagram.com/burdegahamburgueria/" target="_blank" rel="noopener noreferrer" data-link="instagram"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><span>Instagram</span></a></div>
+ </footer>
+ <div class="mobile-dock" aria-label="Pedido rápido"><a href="https://burdegamix.pedizap.com.br/" target="_blank" rel="noopener noreferrer" data-link="menu"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l2 14H3Z"/><path d="M8 8V6a4 4 0 1 1 8 0v2"/></svg> <span>Bora pedir?</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+ <dialog class="dialog" id="hours-dialog" aria-labelledby="hours-title">
+  <div class="dialog-heading"><span class="dialog-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar horários"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+  <span class="eyebrow">SALÃO & DELIVERY</span><h2 id="hours-title">Antes de chegar,<br>dá um alô.</h2>
+  <div id="hours-content"><p>Confira o atendimento de hoje no cardápio ou fale com a gente pelo WhatsApp.</p><p class="muted">Assim, seu pedido não fica para depois.</p></div>
+  <a class="dialog-cta" href="https://wa.me/5588998047212?text=Oi%2C%20Burdega%21%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido.%20%F0%9F%8D%94" target="_blank" rel="noopener noreferrer" data-link="hoursWhatsapp"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a9 9 0 0 1-13.3 8L3 21l1.5-4.7A9 9 0 1 1 21 11.5Z"/><path d="M8.5 7.5c0 4 4 8 8 8l1-2-3-1-.5 1c-1.5-.6-3-2.1-3.5-3.5l1-.5-1-3Z"/></svg> Consultar atendimento <svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a><a class="dialog-secondary" href="https://burdegamix.pedizap.com.br/" target="_blank" rel="noopener noreferrer" data-link="menu">Ver horários no cardápio <svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+ </dialog>
+ <dialog class="dialog" id="share-dialog" aria-labelledby="share-title"><div class="dialog-heading"><span class="dialog-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg></span><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar compartilhamento"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><span class="eyebrow">COISA BOA A GENTE DIVIDE.</span><h2 id="share-title">Chama a galera.</h2><p id="share-help">Copie o link e mande para quem vai pedir com você.</p><label class="sr-only" for="share-url">Link para compartilhar</label><input id="share-url" type="url" readonly><button class="dialog-cta" type="button" id="copy-link"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg> Copiar link</button></dialog>
+ <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+ <noscript><div class="noscript">Os links de cardápio, WhatsApp e localização continuam funcionando sem JavaScript. Consulte o atendimento diretamente no cardápio.</div></noscript>
+</body>
 </html>

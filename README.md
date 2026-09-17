@@ -1,72 +1,50 @@
-# 🍔 Burdega Mix
+# 🍔 Burdega — página-guia
 
-Landing page da **Burdega Hamburgueria Artesanal**, adaptada do [Burger House 3D](https://github.com/mindset-code/burger-house-3d). Preto, amarelo e vermelho da marca; fotos do cardápio oficial; pedidos a um toque.
+Nova página-guia da Burdega, em HTML, CSS e JavaScript puros. Esta versão substitui integralmente o projeto anterior em React/Vite. O histórico do Git foi mantido para recuperação, mas os arquivos antigos não fazem parte da versão atual.
 
-## O que está pronto
+## Abrir
 
-- Hero com foto real do Gourmet Miix e modo 3D opcional, carregado somente ao clicar.
-- Guia rápido: cardápio, WhatsApp, localização e Instagram.
-- Seleção visual de Gourmet Miix, Bacon Bliss e Stick B. Valores e pedidos ficam no Pedizap, sem duplicar estoque ou preços.
-- História desde 2013, endereço de Várzea Alegre, delivery e salão.
-- Layout responsivo a partir de 320 px; barra de pedido fixa no celular.
-- Navegação por teclado, texto alternativo, `prefers-reduced-motion`, controle de animações, compartilhamento e fallback para imagens/WebGL.
-- Fotos locais otimizadas em WebP e dependências travadas no lockfile após o primeiro CI bem-sucedido.
-- Build e testes automáticos no GitHub Actions; capturas desktop/mobile disponíveis nos artefatos.
+Abra `index.html` no navegador. Não é necessário instalar Node, dependências, framework ou executar build. Os destinos de cardápio, WhatsApp, redes sociais e mapa precisam de internet.
 
-## Rodar
+## Editar
 
-Requer **Node.js 22.12+**.
+- `index.html`: estrutura, textos e links de alternativa sem JavaScript.
+- `styles.css`: cores, layout responsivo e animações.
+- `config.js`: links, endereço, referência da logo, horários e compartilhamento.
+- `script.js`: janelas, cópia de endereço, compartilhamento e botão de pedido no celular.
+- `assets/`: ilustrações SVG locais.
+- `gerar_html_unico.py`: gerador opcional de uma cópia portátil.
 
-```bash
-npm install
-npm run dev
-```
+Ao alterar links no `config.js`, atualize também os `href` correspondentes no HTML para manter o funcionamento sem JavaScript.
 
-Após a criação do `package-lock.json` pelo primeiro CI, prefira `npm ci` para instalações reproduzíveis.
+## Publicar
 
-```bash
-npm test
-npm run build
-npm run preview
-```
+Publique `index.html`, `styles.css`, `config.js`, `script.js` e a pasta `assets/`, preservando os caminhos relativos. A pasta de publicação é a raiz do projeto, não `dist`. O arquivo `.nojekyll` permite servir os arquivos estáticos diretamente no GitHub Pages.
 
-O primeiro `dev`/`build` executa `npm run assets`. Ele usa somente as URLs públicas declaradas em `src/data/site.js`; as próximas execuções reutilizam as imagens locais. Uma falha de download não derruba a página: a imagem tenta a URL oficial e, por último, uma ilustração local. O CI exige as fotos reais antes de aprovar o primeiro build.
+Em uma hospedagem anteriormente configurada para o projeto antigo, remova o preset React/Vite e os comandos `npm install`/`npm run build`; use hospedagem estática, sem build, com saída na raiz. Configurações externas de hospedagem e domínio não são alteradas por estes arquivos.
 
-## Personalizar
+## Gerar um HTML único (opcional)
 
-**`src/data/site.js`** concentra os links, telefone, endereço, textos dos produtos e fontes das imagens. **`src/App.css`** contém as cores e o layout. Para atualizar uma foto, altere sua URL e o nome de arquivo em `media`, depois rode `npm run assets`.
-
-Os horários das duas fontes oficiais estavam divergentes; foi mantido um acesso para consultar o atendimento, **sem anunciar "aberto agora"**. Não foram inventados preços, ofertas ou avaliações. Detalhes e fontes em [SOURCES.md](./SOURCES.md).
-
-## Hospedar
-
-O código está preparado para hospedagem estática. Publicar os arquivos no GitHub não é o mesmo que ativar um domínio/site público.
-
-### Vercel
-
-Importe este repositório. Preset **Vite**; build `npm run build`; saída `dist`. O arquivo `vercel.json` já configura isso.
-
-### Netlify
-
-Importe o repositório; `netlify.toml` já define o build.
-
-### GitHub Pages ou outro servidor estático
-
-Faça `npm run build` e publique o conteúdo de `dist`. Os caminhos relativos suportam subpastas, inclusive `/BurdegaMix/`. Não é necessário backend ou banco de dados. Não há publicação automática em produção configurada.
-
-Depois de definir um domínio, personalize os metadados de compartilhamento em `index.html` e adicione a URL canônica.
-
-## Testes
+Com Python 3:
 
 ```bash
-npx playwright install chromium
-npm run test:e2e
+python gerar_html_unico.py
 ```
 
-Os testes verificam links comerciais, layout em 320/390/768/1440 px, imagens reais, navegação mobile, compartilhamento, controles 3D e disponibilidade sem JavaScript. O workflow também disponibiliza a pasta `dist` pronta para hospedagem, capturas e relatório de testes.
+Isso gera `burdega.html`, que pode ser publicado sozinho com o nome `index.html`. Esse arquivo é ignorado pelo Git para não manter duas cópias divergentes. O site normal não depende de Python.
 
-O CI tem permissão para gravar **somente os artefatos gerados adicionados explicitamente pelo script** (`package-lock.json` e `public/media`) na branch `main`, após todos os testes passarem. Não envia dados para outros serviços além das fontes públicas e não publica um site em produção.
+## Atendimento, imagens e pedidos
 
-## Licença
+Os horários continuam pendentes de confirmação: as referências consultadas na criação divergiam. Mantenha `openingHours.confirmed` como `false` até confirmar com a hamburgueria. A página não anuncia se está aberta ou fechada em tempo real.
 
-Código sob MIT, com os créditos originais preservados. Marca e fotografias continuam pertencendo aos titulares; não fazem parte da licença MIT. Veja [LICENSE](./LICENSE) e [SOURCES.md](./SOURCES.md).
+O hambúrguer é uma ilustração decorativa, não uma fotografia de produto. A logo tenta carregar a imagem pública do Linktree quando a página é hospedada; a ilustração local serve de alternativa se o carregamento falhar. Para independência completa, use o arquivo oficial local e desative `logo.loadRemoteWhenHosted`.
+
+Pedidos continuam no cardápio existente; não há carrinho próprio, banco de dados, cadastro, API paga ou rastreamento neste código. Nenhum relatório de clientes foi incluído.
+
+## Referências utilizadas na criação
+
+- https://linktr.ee/burdegamix
+- https://burdegamix.pedizap.com.br/
+- https://www.instagram.com/burdegahamburgueria/
+
+Marca e imagens pertencem aos respectivos titulares.

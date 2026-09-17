@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 500" fill="none">
+<defs>
+ <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#151510" opacity=".12"/></pattern>
+ <linearGradient id="bun" x1="310" y1="89" x2="340" y2="217" gradientUnits="userSpaceOnUse"><stop stop-color="#FFCF59"/><stop offset="1" stop-color="#E98C21"/></linearGradient>
+ <linearGradient id="bottom" x1="330" y1="342" x2="330" y2="416" gradientUnits="userSpaceOnUse"><stop stop-color="#F7B443"/><stop offset="1" stop-color="#DC8428"/></linearGradient>
+</defs>
+<ellipse cx="326" cy="440" rx="196" ry="17" fill="#13130F" opacity=".15"/>
+<g transform="rotate(-7 320 267)" stroke="#161612" stroke-width="7" stroke-linejoin="round">
+ <!-- bottom bun -->
+ <path d="M108 342C153 324 500 325 542 344L537 382C530 419 134 427 113 385Z" fill="url(#bottom)"/>
+ <path d="M117 362C219 389 456 385 535 358" stroke="#B96224" stroke-width="4"/>
+ <!-- beef -->
+ <path d="M103 292C131 273 166 284 193 274C225 263 258 283 287 273C319 262 353 278 383 270C416 260 448 278 480 273C507 270 537 278 546 299L542 338C529 357 507 347 484 356C460 366 435 351 411 359C383 368 355 353 326 362C295 369 271 356 244 364C215 368 193 351 169 357C137 361 108 345 102 329Z" fill="#56352B"/>
+ <path d="M122 307L145 317M164 299L190 306M213 330L236 321M260 299L290 311M305 335L329 326M358 300L386 309M413 334L434 327M463 297L489 308M503 328L525 320" stroke="#986143" stroke-width="5" stroke-linecap="round"/>
+ <!-- melted cheese -->
+ <path d="M93 283C156 263 470 255 551 275L505 308L473 310L445 344C438 353 427 348 425 338L420 310L266 324L221 351L193 321L114 317Z" fill="#FFBF00"/>
+ <path d="M97 282C199 300 436 307 547 275" stroke="#FFE59A" stroke-width="5"/>
+ <!-- tomato -->
+ <path d="M114 254C210 227 449 222 525 248L525 276C434 306 205 293 112 279Z" fill="#D93526"/>
+ <path d="M136 266C266 282 419 280 499 265" stroke="#F37645" stroke-width="4"/>
+ <!-- lettuce -->
+ <path d="M107 213L133 197L175 211L208 193L252 212L287 196L326 208L362 187L402 210L440 193L483 210L524 199L538 220L561 232L541 254L510 247L482 266L449 251L415 267L379 251L340 269L302 255L266 274L229 256L191 269L158 253L126 261L107 243L87 234Z" fill="#75913C"/>
+ <path d="M128 224L155 234L183 222M247 230L274 240L300 227M366 221L399 231L424 220M478 225L501 235" stroke="#ACC965" stroke-width="4" stroke-linecap="round"/>
+ <!-- top bun -->
+ <path d="M100 207C110 138 155 102 239 88C329 73 418 82 477 112C514 132 535 161 542 196C546 214 513 229 478 234C390 250 225 254 147 237C120 231 98 222 100 207Z" fill="url(#bun)"/>
+ <path d="M100 207C110 138 155 102 239 88C329 73 418 82 477 112C514 132 535 161 542 196C546 214 513 229 478 234C390 250 225 254 147 237C120 231 98 222 100 207Z" fill="url(#dots)" stroke="none"/>
+ <path d="M147 166C168 123 209 113 260 107" stroke="#FFE3A2" stroke-width="9" stroke-linecap="round"/>
+ <path d="M143 218C233 245 447 238 510 208" stroke="#B56821" stroke-width="4" stroke-linecap="round"/>
+ <g fill="#FFF0C4" stroke="none">
+  <ellipse cx="228" cy="138" rx="10" ry="3.8" transform="rotate(-25 228 138)"/>
+  <ellipse cx="286" cy="120" rx="10" ry="3.8" transform="rotate(16 286 120)"/>
+  <ellipse cx="345" cy="141" rx="10" ry="3.8" transform="rotate(-18 345 141)"/>
+  <ellipse cx="407" cy="120" rx="10" ry="3.8" transform="rotate(22 407 120)"/>
+  <ellipse cx="459" cy="154" rx="10" ry="3.8" transform="rotate(35 459 154)"/>
+  <ellipse cx="183" cy="185" rx="10" ry="3.8" transform="rotate(13 183 185)"/>
+  <ellipse cx="267" cy="182" rx="10" ry="3.8" transform="rotate(-38 267 182)"/>
+  <ellipse cx="383" cy="191" rx="10" ry="3.8" transform="rotate(13 383 191)"/>
+  <ellipse cx="477" cy="203" rx="10" ry="3.8" transform="rotate(-20 477 203)"/>
+ </g>
+</g>
+<!-- seasoning / motion strokes -->
+<g stroke="#161612" stroke-width="5" stroke-linecap="round">
+ <path d="M90 126L70 114M87 150L59 146M545 116L563 98M560 141L584 132M568 361L590 376M99 353L74 367"/>
+</g>
+<g fill="#D62C22"><path d="M563 52L568 69L585 74L568 79L563 96L558 79L541 74L558 69Z"/><path d="M75 270L79 282L92 286L79 290L75 303L71 290L58 286L71 282Z"/></g>
+</svg>
