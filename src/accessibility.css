@@ -23,6 +23,12 @@
 .visual-controls button, .scene-controls button, .footer-actions a, .footer-actions button {
   min-height: 44px;
 }
+.scene-controls button { min-width: 44px; }
+.hero-visual:has(.scene-controls) .image-caption {
+  top: 35px;
+  bottom: auto;
+  padding-inline: 26px;
+}
 .last-call a:focus-visible { outline-color: #11120d; }
 html:has(.motion-paused) { scroll-behavior: auto; }
 
