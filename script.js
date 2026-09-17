@@ -40,7 +40,6 @@
       original.src = url;
     }
   }
-  if (config.address?.short) $('[data-address]').textContent = config.address.short;
   $$('[data-year]').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
   $$('[data-remote-logo]').forEach((img) => {
     const hideBroken = () => { if (!img.naturalWidth) img.hidden = true; };
@@ -120,12 +119,6 @@
   }
   $$('[data-open-hours]').forEach((button) => {
     button.addEventListener('click', () => openDialog($('#hours-dialog')));
-  });
-  $$('[data-copy-address]').forEach((button) => {
-    button.addEventListener('click', async () => {
-      const address = config.address?.full || 'Rua Padre José Alves, 105, Centro, Várzea Alegre - CE';
-      notify(await copyText(address) ? 'Endereço copiado. Vem pra Burdega!' : 'Não foi possível copiar. O endereço está logo ao lado.');
-    });
   });
   // Never share a local filesystem path or a developer localhost address.
   const currentShareUrl = () => {
@@ -452,31 +445,4 @@
     reducedMotion.addListener(syncMotionPreference);
   }
   syncMotionPreference();
-})();
-
-
-/* Fetch the map only when the existing card is near the viewport. Native lazy
-   loading may otherwise start it several screens before the customer sees it. */
-(() => {
-  'use strict';
-  const map = document.querySelector('.location-card-frame[data-map-src]');
-  if (!map) return;
-  const loadMap = () => {
-    const url = map.dataset.mapSrc;
-    if (!url) return;
-    map.loading = 'eager';
-    map.src = url;
-    map.removeAttribute('data-map-src');
-  };
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        observer.disconnect();
-        loadMap();
-      }
-    }, { rootMargin: '150px 0px' });
-    observer.observe(map);
-  } else {
-    loadMap();
-  }
 })();

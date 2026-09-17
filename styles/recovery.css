@@ -1,0 +1,36 @@
+/* Recovery UI only: never change the resting hero, card or page dimensions. */
+.burger-art.media-pending { opacity: 0; visibility: hidden; pointer-events: none; }
+.burger-load-status[hidden], .map-load-status[hidden], .media-retry[hidden] { display: none; }
+.burger-load-status {
+  position: absolute; z-index: 5; left: 50%; top: 48%; transform: translate(-50%, -50%);
+  width: max-content; max-width: 65%; padding: 13px 16px; border-radius: 12px;
+  border: 1px solid #14141222; background: var(--cream); color: var(--ink);
+  box-shadow: 0 4px 16px #14141212; text-align: center; font-size: 11px; line-height: 1.5;
+}
+.media-retry {
+  display: block; margin: 9px auto 0; min-height: 36px; padding: 8px 12px;
+  border-radius: 8px; background: var(--yellow); color: var(--ink); font-size: 11px; font-weight: 700;
+}
+.location-map { position: relative; }
+.map-load-status {
+  position: absolute; z-index: 1; inset: 0; padding: 20px; display: flex;
+  align-items: center; justify-content: center; background: #f0eee8; color: #4f4e46;
+  font-size: 12px; line-height: 1.6; text-align: center; pointer-events: none;
+}
+.location-map[data-map-state="slow"] .map-load-status {
+  inset: 12px 12px auto; padding: 10px 12px; border-radius: 9px;
+  background: #fffaf0ed; box-shadow: 0 2px 8px #14141212;
+}
+.location-card-actions { display: flex; align-items: stretch; border-top: 1px solid var(--line); }
+.location-card-actions .location-card-open { flex: 1; min-width: 0; min-height: 43px; border-top: 0; }
+.map-retry {
+  display: grid; place-items: center; flex: 0 0 44px; width: 44px; min-height: 43px;
+  border-left: 1px solid var(--line); color: var(--yellow); background: transparent;
+}
+.map-retry .icon { width: 16px; height: 16px; }
+.map-retry:hover { background: var(--ink); }
+.map-retry:focus-visible { outline-offset: -4px; }
+@media (prefers-color-scheme: light) {
+  .map-retry { color: var(--red); }
+  .map-retry:hover { background: #efe8d7; }
+}

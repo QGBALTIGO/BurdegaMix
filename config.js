@@ -1,4 +1,5 @@
-/* EDITE AQUI os links, endereço e informações de funcionamento.
+/* EDITE AQUI links e funcionamento. Localização: edite somente location.json
+   e execute python tools/sync_site.py; os campos abaixo são derivados do HTML.
    IMPORTANTE: horários ainda não confirmados.
    Linktree informa 14h–23h; Pedizap informa 15h–22h30 (consulta em 17/09/2026).
    Não há indicador de "aberto agora" nem sincronização com o Pedizap.
@@ -8,6 +9,8 @@
    publishedUrl deve receber a URL HTTPS real depois de publicar (opcional).
    Links presentes no HTML são alternativas de funcionamento sem JavaScript.
 */
+(() => {
+const location = JSON.parse(document.getElementById('location-data').textContent);
 window.BURDEGA_CONFIG = {
   "brand": "Burdega Hamburgueria",
   "logo": {
@@ -18,14 +21,11 @@ window.BURDEGA_CONFIG = {
     "menu": "https://burdegamix.pedizap.com.br/",
     "whatsapp": "https://wa.me/5588998047212?text=Oi%2C%20Burdega%21%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido.%20%F0%9F%8D%94",
     "hoursWhatsapp": "https://wa.me/5588998047212?text=Oi%2C%20Burdega%21%20Qual%20%C3%A9%20o%20hor%C3%A1rio%20de%20atendimento%20hoje%3F",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE",
+    "maps": location.mapsUrl,
     "instagram": "https://www.instagram.com/burdegahamburgueria/",
     "tiktok": "https://www.tiktok.com/@burdega_mix"
   },
-  "address": {
-    "short": "Rua Padre José Alves, 105 • Centro",
-    "full": "Rua Padre José Alves, 105, Centro, Várzea Alegre - CE"
-  },
+  "address": location.address,
   "openingHours": {
     "confirmed": false,
     "timezone": "America/Fortaleza",
@@ -38,3 +38,4 @@ window.BURDEGA_CONFIG = {
     "publishedUrl": ""
   }
 };
+})();

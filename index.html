@@ -212,8 +212,51 @@
   .location-card-open:hover { background: #efe8d7; }
 }
  </style>
- <script src="config.js" defer></script>
- <script src="script.js?v=media-20260917" defer></script>
+<!-- location:data:start -->
+<script id="location-data" type="application/json">{"name":"Burdega Hamburgueria","placeId":"ChIJq174ymGzowcR7KFL73d2ssU","cid":"14245578828814197228","address":{"short":"Rua Padre José Alves, 105 • Centro","full":"Rua Padre José Alves, 105, Centro, Várzea Alegre - CE","cityLabel":"Várzea Alegre, Ceará"},"mapsUrl":"https://www.google.com/maps/search/?api=1\u0026query=Burdega+Hamburgueria%2C+Rua+Padre+Jos%C3%A9+Alves%2C+105%2C+Centro%2C+V%C3%A1rzea+Alegre+-+CE\u0026query_place_id=ChIJq174ymGzowcR7KFL73d2ssU","embedUrl":"https://www.google.com/maps/embed?origin=mfe\u0026pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR","mapTitle":"Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE"}</script>
+<!-- location:data:end -->
+<!-- recovery:style:start -->
+<style id="recovery-styles">
+/* Recovery UI only: never change the resting hero, card or page dimensions. */
+.burger-art.media-pending { opacity: 0; visibility: hidden; pointer-events: none; }
+.burger-load-status[hidden], .map-load-status[hidden], .media-retry[hidden] { display: none; }
+.burger-load-status {
+  position: absolute; z-index: 5; left: 50%; top: 48%; transform: translate(-50%, -50%);
+  width: max-content; max-width: 65%; padding: 13px 16px; border-radius: 12px;
+  border: 1px solid #14141222; background: var(--cream); color: var(--ink);
+  box-shadow: 0 4px 16px #14141212; text-align: center; font-size: 11px; line-height: 1.5;
+}
+.media-retry {
+  display: block; margin: 9px auto 0; min-height: 36px; padding: 8px 12px;
+  border-radius: 8px; background: var(--yellow); color: var(--ink); font-size: 11px; font-weight: 700;
+}
+.location-map { position: relative; }
+.map-load-status {
+  position: absolute; z-index: 1; inset: 0; padding: 20px; display: flex;
+  align-items: center; justify-content: center; background: #f0eee8; color: #4f4e46;
+  font-size: 12px; line-height: 1.6; text-align: center; pointer-events: none;
+}
+.location-map[data-map-state="slow"] .map-load-status {
+  inset: 12px 12px auto; padding: 10px 12px; border-radius: 9px;
+  background: #fffaf0ed; box-shadow: 0 2px 8px #14141212;
+}
+.location-card-actions { display: flex; align-items: stretch; border-top: 1px solid var(--line); }
+.location-card-actions .location-card-open { flex: 1; min-width: 0; min-height: 43px; border-top: 0; }
+.map-retry {
+  display: grid; place-items: center; flex: 0 0 44px; width: 44px; min-height: 43px;
+  border-left: 1px solid var(--line); color: var(--yellow); background: transparent;
+}
+.map-retry .icon { width: 16px; height: 16px; }
+.map-retry:hover { background: var(--ink); }
+.map-retry:focus-visible { outline-offset: -4px; }
+@media (prefers-color-scheme: light) {
+  .map-retry { color: var(--red); }
+  .map-retry:hover { background: #efe8d7; }
+}
+</style>
+<!-- recovery:style:end -->
+ <script src="config.js?v=location-20260917" defer></script>
+ <script src="script.js?v=recovery-20260917" defer></script>
 </head>
 <body>
  <a href="#seus-links" class="skip-link">Ir para os links</a>
@@ -243,20 +286,8 @@
     </svg>
     <span class="arc-label" aria-hidden="true">BATEU A FOME? JÁ SABE.</span>
     <img class="burger-art" src="assets/burger-640.webp" alt="Hambúrguer da Burdega" width="640" height="640" fetchpriority="high" loading="eager" decoding="async">
-    <script>
-    (() => {
-      const image = document.currentScript.previousElementSibling;
-      const show = () => image.classList.remove('media-pending');
-      const ready = () => {
-        if (typeof image.decode === 'function') image.decode().then(show, show);
-        else show();
-      };
-      if (image.complete) { ready(); return; }
-      image.classList.add('media-pending');
-      image.addEventListener('load', ready, { once: true });
-      image.addEventListener('error', show, { once: true });
-    })();
-    </script>
+    <script>if (!document.currentScript.previousElementSibling.complete) document.currentScript.previousElementSibling.classList.add('media-pending');</script>
+    <div class="burger-load-status" data-burger-status role="status" aria-live="polite" hidden><span data-burger-message>Carregando imagem…</span><button type="button" class="media-retry" data-retry-burger hidden>Tentar novamente</button></div>
     <span class="round-stamp" aria-label="Desde 2013"><span>FEITO COM</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><strong>DESDE 2013</strong></span>
     <span class="poster-scribble" aria-hidden="true">é de dar<br>água na boca!</span>
     <svg class="scribble-arrow" viewBox="0 0 90 80" fill="none" aria-hidden="true"><path d="M8 8C1 55 32 69 73 41M55 37l22 1-5 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -278,18 +309,26 @@
     <a class="action-card action-small" href="https://www.instagram.com/burdegahamburgueria/" target="_blank" rel="noopener noreferrer" data-link="instagram"><div class="small-top"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><svg class="icon card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></div><h3>Olha esse feed</h3><p>Deu fome só de ver.</p></a>
    </div>
   </section>
+<!-- location:card:start -->
   <section class="location-card" aria-labelledby="location-card-title">
    <div class="location-card-heading">
     <div class="location-card-copy">
      <h2 id="location-card-title">Vem pro Burdega</h2>
      <p><span data-address>Rua Padre José Alves, 105 • Centro</span><br><strong>Várzea Alegre, Ceará</strong></p>
     </div>
-    <button type="button" class="copy-address" data-copy-address aria-label="Copiar endereço" title="Copiar endereço"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button>
+    <button type="button" class="copy-address" data-copy-address data-copy-value="Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" aria-label="Copiar endereço" title="Copiar endereço"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button>
    </div>
-   <iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="about:blank" data-map-src="https://www.google.com/maps?q=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE&amp;z=17&amp;hl=pt-BR&amp;output=embed" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-   <noscript><style>.location-card-frame[data-map-src] { display: none; }</style><iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="https://www.google.com/maps?q=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE&amp;z=17&amp;hl=pt-BR&amp;output=embed" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></noscript>
-   <a class="location-card-open" href="https://www.google.com/maps/search/?api=1&amp;query=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE" target="_blank" rel="noopener noreferrer" data-link="maps" aria-label="Abrir a localização da Burdega no Google Maps em uma nova aba"><span>Abrir no Google Maps</span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></a>
+   <div class="location-map" data-map-state="idle">
+    <iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="about:blank" data-map-src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="map-load-status" data-map-status role="status" aria-live="polite" hidden>Carregando mapa…</div>
+    <noscript><style>.location-card-frame[data-map-src] { display: none; }</style><iframe class="location-card-frame" name="burdega-map" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></noscript>
+   </div>
+   <div class="location-card-actions">
+   <a class="location-card-open" href="https://www.google.com/maps/search/?api=1&amp;query=Burdega+Hamburgueria%2C+Rua+Padre+Jos%C3%A9+Alves%2C+105%2C+Centro%2C+V%C3%A1rzea+Alegre+-+CE&amp;query_place_id=ChIJq174ymGzowcR7KFL73d2ssU" target="_blank" rel="noopener noreferrer" data-link="maps" aria-label="Abrir a localização da Burdega no Google Maps em uma nova aba"><span>Abrir no Google Maps</span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></a>
+    <a class="map-retry" data-retry-map href="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m4!3m2!1m1!4s14245578828814197228!6i17!3m1!1spt-BR!5m1!1spt-BR" target="burdega-map" aria-label="Recarregar mapa" title="Recarregar mapa"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M4 17v-5h5"/><path d="M6.1 6.1A8 8 0 0 1 19.8 10M4.2 14a8 8 0 0 0 13.7 3.9"/></svg></a>
+   </div>
   </section>
+<!-- location:card:end -->
  </main>
  <div class="ticker-wrap"><div class="ticker" aria-label="Hambúrgueres artesanais, salgados, sobremesas e combos">
   <div class="ticker-content"><span>BURGER DE VERDADE</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9a8 8 0 0 1 16 0Z"/><path d="M3 13h18M4 17h16l-1 3H5Z"/><path d="M9 5h.01M14 5h.01"/></svg></b><span>SALGADOS</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10h18a9 9 0 0 1-18 0Z"/><path d="m5 12 1 1m3 2 .5 1m5.5-1-.5 1m4.5-4-1 1M8 6V4m4 2V3m4 3V4"/></svg></b><span>SOBREMESAS</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 13h12l-6 8Z"/><path d="M6 13a3 3 0 0 1-1-5 7 7 0 0 1 14 0 3 3 0 0 1-1 5"/><path d="m10 15 4 3"/></svg></b><span>COMBOS</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8h12l-2 13H8Z"/><path d="M5 8h14M12 8l2-5h4M8 12h8"/></svg></b><span>VEM DE BURDEGA</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 7h14l2 14H3Z"/><path d="M8 8V6a4 4 0 1 1 8 0v2"/></svg></b><span>BURGER DE VERDADE</span><b class="ticker-symbol" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9a8 8 0 0 1 16 0Z"/><path d="M3 13h18M4 17h16l-1 3H5Z"/><path d="M9 5h.01M14 5h.01"/></svg></b></div>
@@ -308,5 +347,203 @@
  <dialog class="dialog" id="share-dialog" aria-labelledby="share-title"><div class="dialog-heading"><span class="dialog-icon"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg></span><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar compartilhamento"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div><span class="eyebrow">COISA BOA A GENTE DIVIDE.</span><h2 id="share-title">Chama a galera.</h2><p id="share-help">Copie o link e mande para quem vai pedir com você.</p><label class="sr-only" for="share-url">Link para compartilhar</label><input id="share-url" type="url" readonly><button class="dialog-cta" type="button" id="copy-link"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg> Copiar link</button></dialog>
  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
  <noscript><div class="noscript">Os links de cardápio, WhatsApp e localização continuam funcionando sem JavaScript. Consulte o atendimento diretamente no cardápio.</div></noscript>
+<!-- recovery:script:start -->
+<script id="site-recovery">
+/* Inlined by tools/sync_site.py. This must not depend on config.js/script.js:
+   address copying, image recovery and the map work if either request fails. */
+(() => {
+  'use strict';
+  const node = document.getElementById('location-data');
+  let location;
+  try { location = JSON.parse(node.textContent); } catch { return; }
+  const copy = document.querySelector('[data-copy-address]');
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  const notify = (text) => {
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 3500);
+  };
+  const copyText = async (text) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch { /* Use selection when permission is denied. */ }
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.readOnly = true;
+    field.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+    const previous = document.activeElement;
+    (document.querySelector('dialog[open]') || document.body).appendChild(field);
+    field.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { /* Report failure. */ }
+    field.remove();
+    previous?.focus({ preventScroll: true });
+    return ok;
+  };
+  copy?.addEventListener('click', async () => {
+    notify(await copyText(location.address.full)
+      ? 'Endereço copiado. Vem pra Burdega!'
+      : 'Não foi possível copiar. O endereço está logo ao lado.');
+  });
+})();
+
+(() => {
+  'use strict';
+  const image = document.querySelector('.burger-art');
+  const status = document.querySelector('[data-burger-status]');
+  const message = document.querySelector('[data-burger-message]');
+  const retry = document.querySelector('[data-retry-burger]');
+  if (!image || !status || !message || !retry) return;
+  const source = image.getAttribute('src');
+  let generation = 0;
+  let autoRetries = 0;
+  let state = 'loading';
+  let noticeTimer, slowTimer, retryTimer;
+  const clearTimers = () => {
+    clearTimeout(noticeTimer); clearTimeout(slowTimer); clearTimeout(retryTimer);
+  };
+  const setState = (next, text, offerRetry = false) => {
+    state = next;
+    image.dataset.mediaState = next;
+    image.classList.toggle('media-pending', next !== 'ready');
+    status.hidden = next === 'ready';
+    message.textContent = text;
+    retry.hidden = !offerRetry;
+  };
+  const pending = () => {
+    clearTimers();
+    state = 'loading';
+    image.dataset.mediaState = state;
+    image.classList.add('media-pending');
+    status.hidden = true;
+    retry.hidden = true;
+    noticeTimer = setTimeout(() => setState('loading', 'Carregando imagem…'), 700);
+    slowTimer = setTimeout(() => {
+      setState('slow', 'A imagem está demorando para carregar.', true);
+    }, 12000);
+  };
+  const attempt = () => {
+    generation += 1;
+    pending();
+    // Cache-bust only explicit retries, never the normal optimized/preloaded URL.
+    const url = new URL(source, document.baseURI);
+    if (/^https?:$/.test(url.protocol)) url.searchParams.set('retry', `${Date.now()}-${generation}`);
+    image.src = url.href;
+  };
+  const failed = () => {
+    if (state === 'error' || state === 'retrying') return;
+    clearTimers();
+    if (navigator.onLine !== false && autoRetries < 1) {
+      autoRetries += 1;
+      setState('retrying', 'Tentando carregar a imagem novamente…');
+      retryTimer = setTimeout(attempt, 1000);
+    } else {
+      setState('error', navigator.onLine === false
+        ? 'Sem conexão para carregar a imagem.'
+        : 'Não foi possível carregar a imagem.', true);
+    }
+  };
+  const loaded = async () => {
+    const current = generation;
+    if (!image.complete) return;
+    if (!image.naturalWidth) { failed(); return; }
+    try { if (typeof image.decode === 'function') await image.decode(); }
+    catch { if (current === generation) failed(); return; }
+    if (current !== generation) return;
+    clearTimers();
+    const wasFocused = document.activeElement === retry;
+    setState('ready', '');
+    if (wasFocused && image.tabIndex >= 0) image.focus({ preventScroll: true });
+  };
+  image.addEventListener('load', loaded);
+  image.addEventListener('error', failed);
+  retry.addEventListener('click', () => { autoRetries = 0; attempt(); });
+  window.addEventListener('online', () => {
+    if (state === 'error' || state === 'slow') { autoRetries = 0; attempt(); }
+  });
+  pending();
+  if (image.complete) loaded();
+})();
+
+(() => {
+  'use strict';
+  const frame = document.querySelector('.location-card-frame[data-map-src]');
+  const host = document.querySelector('.location-map');
+  const status = document.querySelector('[data-map-status]');
+  const retry = document.querySelector('[data-retry-map]');
+  if (!frame || !host || !status || !retry) return;
+  frame.name = 'burdega-map';
+  const url = frame.dataset.mapSrc;
+  let timer;
+  let observer;
+  let started = false;
+  let near = false;
+  const describe = (state, text) => {
+    host.dataset.mapState = state;
+    host.setAttribute('aria-busy', String(state === 'loading'));
+    status.textContent = text;
+    status.hidden = !text;
+  };
+  const load = () => {
+    clearTimeout(timer);
+    started = true;
+    if (navigator.onLine === false) {
+      describe('offline', 'Sem conexão. Você pode recarregar o mapa quando voltar.');
+      return;
+    }
+    describe('loading', 'Carregando mapa…');
+    // Keep the exact pinned URL unchanged on every retry. Replacing the iframe
+    // document reloads it without adding arbitrary Google query parameters.
+    frame.loading = 'eager';
+    frame.src = url;
+    timer = setTimeout(() => {
+      describe('slow', 'O mapa está demorando. Recarregue ou abra no Google Maps.');
+    }, 12000);
+  };
+  frame.addEventListener('load', () => {
+    if (!started || frame.getAttribute('src') === 'about:blank') return;
+    // Ignore the initial about:blank event even if a navigation has just started.
+    try { if (frame.contentWindow.location.href === 'about:blank') return; }
+    catch { /* Cross-origin Google document: its content is intentionally opaque. */ }
+    clearTimeout(timer);
+    // A cross-origin iframe load is NOT proof of a valid map or loaded tiles.
+    // Browsers also fire load on network error pages. Never report "map verified";
+    // always retain the native reload link and external Maps link below the frame.
+    describe('settled', '');
+  });
+  retry.addEventListener('click', (event) => {
+    event.preventDefault();
+    near = true;
+    observer?.disconnect();
+    load();
+  });
+  window.addEventListener('online', () => {
+    if (near && ['offline', 'slow'].includes(host.dataset.mapState)) load();
+  });
+  window.addEventListener('offline', () => {
+    if (host.dataset.mapState === 'loading') {
+      clearTimeout(timer);
+      describe('offline', 'Sem conexão. Você pode recarregar o mapa quando voltar.');
+    }
+  });
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        near = true;
+        observer.disconnect();
+        load();
+      }
+    }, { rootMargin: '150px 0px' });
+    observer.observe(frame);
+  } else { near = true; load(); }
+})();
+</script>
+<!-- recovery:script:end -->
 </body>
 </html>

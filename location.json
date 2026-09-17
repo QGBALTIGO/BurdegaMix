@@ -1,0 +1,27 @@
+{
+  "name": "Burdega Hamburgueria",
+  "address": {
+    "street": "Rua Padre José Alves",
+    "number": "105",
+    "neighborhood": "Centro",
+    "city": "Várzea Alegre",
+    "state": "CE",
+    "stateName": "Ceará"
+  },
+  "google": {
+    "placeId": "ChIJq174ymGzowcR7KFL73d2ssU",
+    "cid": "14245578828814197228"
+  },
+  "verification": {
+    "date": "2026-09-17",
+    "googleName": "Burdega Hamburgueria",
+    "phone": "+5588998047212",
+    "website": "https://burdegamix.pedizap.com.br/",
+    "coordinates": {
+      "latitude": -6.7888979,
+      "longitude": -39.2976899
+    },
+    "method": "Google embed response: Place ID and CID belong to the same listing; phone and menu match the official business references. Street/number retained from the official menu.",
+    "source": "https://www.google.com/maps?cid=14245578828814197228&z=17&hl=pt-BR&output=embed"
+  }
+}

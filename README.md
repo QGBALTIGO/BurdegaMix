@@ -10,7 +10,8 @@ Abra `index.html` no navegador. Não é necessário instalar Node, dependências
 
 - `index.html`: estrutura, textos e links de alternativa sem JavaScript.
 - `styles.css`: cores, layout responsivo e animações.
-- `config.js`: links, endereço, referência da logo, horários e compartilhamento.
+- `config.js`: links, referência da logo, horários e compartilhamento.
+- `location.json`: fonte única do endereço e dos identificadores do Google Maps.
 - `script.js`: janelas, cópia de endereço, compartilhamento e botão de pedido no celular.
 - `assets/`: ilustrações SVG locais.
 - `gerar_html_unico.py`: gerador opcional de uma cópia portátil.
@@ -48,3 +49,38 @@ Pedidos continuam no cardápio existente; não há carrinho próprio, banco de d
 - https://www.instagram.com/burdegahamburgueria/
 
 Marca e imagens pertencem aos respectivos titulares.
+
+## Localização fixa e recuperação de carregamento
+
+A única fonte editável de localização é `location.json`. O Place ID é usado no
+botão externo. O mini mapa usa a incorporação com o CID do **mesmo cadastro**;
+nome, telefone e cardápio foram conferidos na resposta pública do Google em
+17/09/2026. Os identificadores e a conferência estão registrados nesse arquivo.
+Não use `q=place_id:...` na antiga incorporação por busca: esse formato retornou
+um local diferente durante a verificação. Não há chave/API paga nesta integração.
+
+Depois de editar a localização, execute:
+
+```bash
+python tools/sync_site.py
+python tools/sync_site.py --check
+python -m unittest discover -s tests -v
+```
+
+O gerador sincroniza endereço exibido, valor copiado, URL do botão, mini mapa,
+alternativa sem JavaScript e JSON interno. `config.js` consome esse JSON, sem
+manter outra cópia editável do endereço. O workflow `Validate location and
+recovery` detecta divergências em pushes/PRs; ele não altera dados nem corrige
+silenciosamente um Place ID/CID inválido. Confirme ambos no Google ao mudar de local.
+
+`recovery.js` e `styles/recovery.css` também são incorporados no HTML pelo gerador.
+Isso evita novas requisições e mantém a cópia, o mapa e a recuperação da imagem
+independentes de uma falha no carregamento de `config.js`/`script.js`. A imagem
+WebP local continua sendo priorizada; após erro há uma repetição automática
+limitada e um botão para tentar novamente. O mapa só inicia perto da tela e
+mantém links nativos para recarregar e abrir o estabelecimento externamente.
+
+O evento `load` de um iframe de outro domínio não comprova que os mapas/tiles
+foram carregados. Por isso o site não anuncia sucesso confirmado: o estado de
+carregamento é discreto, há aviso se demorar e o controle de recarregar permanece
+acessível mesmo após um evento `load` de uma página de erro do navegador.

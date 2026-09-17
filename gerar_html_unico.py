@@ -6,6 +6,7 @@ import argparse
 import base64
 import re
 from pathlib import Path
+from tools.sync_site import render
 
 
 def build(root: Path, output: Path) -> None:
@@ -13,12 +14,12 @@ def build(root: Path, output: Path) -> None:
     for name in required:
         if not (root / name).is_file():
             raise FileNotFoundError(f'Arquivo necessário não encontrado: {root / name}')
-    html = (root / 'index.html').read_text(encoding='utf-8')
+    html = render(root)
     css = (root / 'styles.css').read_text(encoding='utf-8')
     config = (root / 'config.js').read_text(encoding='utf-8')
     js = (root / 'script.js').read_text(encoding='utf-8')
     html = html.replace('<link rel="stylesheet" href="styles.css">', f'<style>\n{css}\n</style>')
-    html = html.replace('<script src="config.js" defer></script>', '')
+    html = re.sub(r'<script src="config\.js(?:\?[^"]*)?" defer></script>', '', html)
     html = re.sub(r'<script src="script\.js(?:\?[^"]*)?" defer></script>', '', html)
     mime_types = {'.svg': 'image/svg+xml', '.webp': 'image/webp'}
     for asset in sorted((root / 'assets').iterdir()):
