@@ -120,6 +120,96 @@
   height: 100%;
 }
  </style>
+ <style id="location-card-style">
+/* Replace the old address row with one map card. Preserve the hero's first-row
+   height on desktop by retaining only the old address row's occupied space. */
+.location-card {
+  grid-column: 2;
+  min-width: 0;
+  margin-top: -76px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-soft);
+  color: var(--cream);
+  box-shadow: 0 8px 24px #00000014;
+}
+.location-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.location-card-copy { min-width: 0; }
+.location-card h2 {
+  margin: 0 0 7px;
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -.5px;
+}
+.location-card-copy p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.7; }
+.location-card-copy strong { font-weight: 500; }
+.location-card .copy-address {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--yellow);
+  transition: background .2s, color .2s;
+}
+.location-card .copy-address .icon { width: 19px; height: 19px; }
+.location-card .copy-address:hover { background: var(--yellow); color: var(--ink); }
+.location-card-frame {
+  display: block;
+  width: 100%;
+  height: 250px;
+  border: 0;
+  background: #f0eee8;
+  color-scheme: light;
+  color-scheme: only light;
+}
+.location-card-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--yellow);
+  font-size: 11px;
+  font-weight: 700;
+  transition: background .2s;
+}
+.location-card-open .icon { width: 15px; height: 15px; }
+.location-card-open:hover { background: var(--ink); }
+.location-card-open:focus-visible { outline-offset: -4px; }
+@media (min-width: 761px) {
+  .main--location > .links-panel { padding-bottom: 56px; }
+}
+@media (min-width: 761px) and (max-width: 1099px) {
+  .location-card { margin-top: -61px; }
+}
+@media (max-width: 760px) {
+  .location-card { grid-column: 1; margin-top: -9px; }
+  .location-card-heading { padding: 16px; gap: 12px; }
+  .location-card-frame { height: 230px; }
+  .location-card-open { padding-inline: 16px; }
+}
+@media (prefers-color-scheme: light) {
+  .location-card { background: var(--cream); color: var(--ink); box-shadow: 0 6px 20px #1414120a; }
+  .location-card .copy-address { background: #fffaf0; color: var(--ink); }
+  .location-card .copy-address:hover { background: var(--yellow); }
+  .location-card-open { color: var(--red); }
+  .location-card-open:hover { background: #efe8d7; }
+}
+ </style>
  <script src="config.js" defer></script>
  <script src="script.js" defer></script>
 </head>
@@ -137,7 +227,7 @@
    <button class="share-button" type="button" data-share aria-label="Compartilhar a página"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg></button>
   </nav>
  </header>
- <main class="container main" id="inicio">
+ <main class="container main main--location" id="inicio">
   <section class="poster" aria-labelledby="hero-title">
    <div class="poster-top"><span class="eyebrow"><span class="tiny-star" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 13.9A4 4 0 0 1 6.3 6a6 6 0 0 1 11.4 0 4 4 0 0 1 .3 7.9V21H6Z"/><path d="M6 17h12"/></svg></span> ARTESANAL. DO NOSSO JEITO.</span><span class="edition">EST. 2013</span></div>
    <h1 id="hero-title"><span>SUA FOME</span><span>TEM <em>ENDEREÇO.</em></span></h1>
@@ -171,7 +261,17 @@
     <a class="action-card action-small" href="https://www.google.com/maps/search/?api=1&query=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE" target="_blank" rel="noopener noreferrer" data-link="maps"><div class="small-top"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><svg class="icon card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></div><h3>Vem pra Burdega</h3><p>Encontre a gente no mapa.</p></a>
     <a class="action-card action-small" href="https://www.instagram.com/burdegahamburgueria/" target="_blank" rel="noopener noreferrer" data-link="instagram"><div class="small-top"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><svg class="icon card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></div><h3>Olha esse feed</h3><p>Deu fome só de ver.</p></a>
    </div>
-   <div class="address-bar"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><p><span data-address>Rua Padre José Alves, 105 • Centro</span><br><strong>Várzea Alegre, Ceará</strong></p><button type="button" class="copy-address" data-copy-address aria-label="Copiar endereço" title="Copiar endereço"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
+  </section>
+  <section class="location-card" aria-labelledby="location-card-title">
+   <div class="location-card-heading">
+    <div class="location-card-copy">
+     <h2 id="location-card-title">Vem pro Burdega</h2>
+     <p><span data-address>Rua Padre José Alves, 105 • Centro</span><br><strong>Várzea Alegre, Ceará</strong></p>
+    </div>
+    <button type="button" class="copy-address" data-copy-address aria-label="Copiar endereço" title="Copiar endereço"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button>
+   </div>
+   <iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="https://www.google.com/maps?q=Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE&amp;z=17&amp;hl=pt-BR&amp;output=embed" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   <a class="location-card-open" href="https://www.google.com/maps/search/?api=1&amp;query=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE" target="_blank" rel="noopener noreferrer" data-link="maps" aria-label="Abrir a localização da Burdega no Google Maps em uma nova aba"><span>Abrir no Google Maps</span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></a>
   </section>
  </main>
  <div class="ticker-wrap"><div class="ticker" aria-label="Hambúrgueres artesanais, salgados, sobremesas e combos">
