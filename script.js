@@ -453,3 +453,30 @@
   }
   syncMotionPreference();
 })();
+
+
+/* Fetch the map only when the existing card is near the viewport. Native lazy
+   loading may otherwise start it several screens before the customer sees it. */
+(() => {
+  'use strict';
+  const map = document.querySelector('.location-card-frame[data-map-src]');
+  if (!map) return;
+  const loadMap = () => {
+    const url = map.dataset.mapSrc;
+    if (!url) return;
+    map.loading = 'eager';
+    map.src = url;
+    map.removeAttribute('data-map-src');
+  };
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        observer.disconnect();
+        loadMap();
+      }
+    }, { rootMargin: '150px 0px' });
+    observer.observe(map);
+  } else {
+    loadMap();
+  }
+})();

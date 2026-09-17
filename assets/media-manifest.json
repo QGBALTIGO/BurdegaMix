@@ -1,0 +1,23 @@
+{
+  "purpose": "Local optimized copies of the exact approved images. No cropping, redrawing or rotation of the source files.",
+  "burger": {
+    "source": "https://i.ibb.co/kgWQ2xWP/2634-BB4-E-6-E4-F-4-D89-A476-321335-F4-E4-BC.png",
+    "source_bytes": 866982,
+    "source_sha256": "79f6397cc1ccba5ecf173c95524b28cb41e113cbe9c7d974b446f58a4625ffc8",
+    "source_dimensions": [640, 640],
+    "output": "burger-640.webp",
+    "output_bytes": 157998,
+    "output_dimensions": [640, 640],
+    "encoding": "WebP quality 90, method 6, transparency retained"
+  },
+  "logo": {
+    "source": "https://i.ibb.co/ZjKVxwt/AC143-FC4-9-B27-4412-A851-DF1-B3-D5-FD98-E.png",
+    "source_bytes": 223303,
+    "source_sha256": "0b0abd848f81bfd88bd6a7e24f126e1c3725990be745a7a8df267481e80d7df5",
+    "source_dimensions": [640, 640],
+    "output": "logo-burdega.webp",
+    "output_bytes": 22880,
+    "output_dimensions": [208, 208],
+    "encoding": "Lanczos resize, lossless WebP, full transparent canvas retained"
+  }
+}

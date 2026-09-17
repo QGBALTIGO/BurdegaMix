@@ -13,6 +13,8 @@
  <meta property="og:description" content="Hamburgueria artesanal em Várzea Alegre. Escolha seu próximo pedido, fale com a gente e encontre a Burdega.">
  <title>Burdega • Sua fome tem endereço.</title>
  <link rel="icon" type="image/svg+xml" href="assets/marca-apoio.svg">
+ <link rel="preload" as="image" href="assets/burger-640.webp" type="image/webp" fetchpriority="high">
+ <style id="image-loading-state">.burger-art.media-pending { opacity: 0; }</style>
  <link rel="stylesheet" href="styles.css">
  <style id="system-appearance">
 /* System appearance only. Keep the existing artwork and brand colors fixed;
@@ -211,14 +213,14 @@
 }
  </style>
  <script src="config.js" defer></script>
- <script src="script.js" defer></script>
+ <script src="script.js?v=media-20260917" defer></script>
 </head>
 <body>
  <a href="#seus-links" class="skip-link">Ir para os links</a>
  <div class="topline" aria-hidden="true"></div>
  <header class="header container">
   <a class="brand" href="#inicio" aria-label="Burdega, início">
-   <span class="brand-mark" style="background:transparent;border-radius:0"><img class="logo-fallback" src="https://i.ibb.co/ZjKVxwt/AC143-FC4-9-B27-4412-A851-DF1-B3-D5-FD98-E.png" width="52" height="52" alt="" referrerpolicy="no-referrer" style="object-fit:contain"></span>
+   <span class="brand-mark" style="background:transparent;border-radius:0"><img class="logo-fallback" src="assets/logo-burdega.webp" width="52" height="52" alt="" referrerpolicy="no-referrer" style="object-fit:contain"></span>
    <span class="brand-type"><strong>burdega.</strong><small>HAMBURGUERIA ARTESANAL</small></span>
   </a>
   <nav class="header-nav" aria-label="Navegação principal">
@@ -240,7 +242,21 @@
      <path class="spark" d="m566 65 7 20 20 7-20 7-7 20-7-20-20-7 20-7ZM55 240l5 15 15 5-15 5-5 15-5-15-15-5 15-5Z"/>
     </svg>
     <span class="arc-label" aria-hidden="true">BATEU A FOME? JÁ SABE.</span>
-    <img class="burger-art" src="https://i.ibb.co/kgWQ2xWP/2634-BB4-E-6-E4-F-4-D89-A476-321335-F4-E4-BC.png" alt="Hambúrguer da Burdega" width="650" height="500" fetchpriority="high" referrerpolicy="no-referrer">
+    <img class="burger-art" src="assets/burger-640.webp" alt="Hambúrguer da Burdega" width="640" height="640" fetchpriority="high" loading="eager" decoding="async">
+    <script>
+    (() => {
+      const image = document.currentScript.previousElementSibling;
+      const show = () => image.classList.remove('media-pending');
+      const ready = () => {
+        if (typeof image.decode === 'function') image.decode().then(show, show);
+        else show();
+      };
+      if (image.complete) { ready(); return; }
+      image.classList.add('media-pending');
+      image.addEventListener('load', ready, { once: true });
+      image.addEventListener('error', show, { once: true });
+    })();
+    </script>
     <span class="round-stamp" aria-label="Desde 2013"><span>FEITO COM</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><strong>DESDE 2013</strong></span>
     <span class="poster-scribble" aria-hidden="true">é de dar<br>água na boca!</span>
     <svg class="scribble-arrow" viewBox="0 0 90 80" fill="none" aria-hidden="true"><path d="M8 8C1 55 32 69 73 41M55 37l22 1-5 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -270,7 +286,8 @@
     </div>
     <button type="button" class="copy-address" data-copy-address aria-label="Copiar endereço" title="Copiar endereço"><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button>
    </div>
-   <iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="https://www.google.com/maps?q=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE&amp;z=17&amp;hl=pt-BR&amp;output=embed" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   <iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="about:blank" data-map-src="https://www.google.com/maps?q=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE&amp;z=17&amp;hl=pt-BR&amp;output=embed" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   <noscript><style>.location-card-frame[data-map-src] { display: none; }</style><iframe class="location-card-frame" title="Mapa da Burdega: Rua Padre José Alves, 105, Centro, Várzea Alegre - CE" src="https://www.google.com/maps?q=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE&amp;z=17&amp;hl=pt-BR&amp;output=embed" width="600" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></noscript>
    <a class="location-card-open" href="https://www.google.com/maps/search/?api=1&amp;query=Burdega%20Hamburgueria%2C%20Rua%20Padre%20Jos%C3%A9%20Alves%2C%20105%2C%20Centro%2C%20V%C3%A1rzea%20Alegre%20-%20CE" target="_blank" rel="noopener noreferrer" data-link="maps" aria-label="Abrir a localização da Burdega no Google Maps em uma nova aba"><span>Abrir no Google Maps</span><svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg></a>
   </section>
  </main>

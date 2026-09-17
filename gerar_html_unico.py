@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import re
 from pathlib import Path
 
 
@@ -18,10 +19,14 @@ def build(root: Path, output: Path) -> None:
     js = (root / 'script.js').read_text(encoding='utf-8')
     html = html.replace('<link rel="stylesheet" href="styles.css">', f'<style>\n{css}\n</style>')
     html = html.replace('<script src="config.js" defer></script>', '')
-    html = html.replace('<script src="script.js" defer></script>', '')
-    for asset in (root / 'assets').glob('*.svg'):
+    html = re.sub(r'<script src="script\.js(?:\?[^"]*)?" defer></script>', '', html)
+    mime_types = {'.svg': 'image/svg+xml', '.webp': 'image/webp'}
+    for asset in sorted((root / 'assets').iterdir()):
+        mime = mime_types.get(asset.suffix.lower())
+        if not mime or not asset.is_file():
+            continue
         encoded = base64.b64encode(asset.read_bytes()).decode('ascii')
-        html = html.replace(f'assets/{asset.name}', f'data:image/svg+xml;base64,{encoded}')
+        html = html.replace(f'assets/{asset.name}', f'data:{mime};base64,{encoded}')
     # Protect the enclosing script element if editable text contains this token.
     config = config.replace('</script', '<\\/script')
     js = js.replace('</script', '<\\/script')
