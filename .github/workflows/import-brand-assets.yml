@@ -1,0 +1,63 @@
+name: Import approved Burdega images
+on:
+  push:
+    branches: [design/brand-refresh]
+    paths: [.github/workflows/import-brand-assets.yml]
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve and verify the exact approved PNG files
+        shell: python
+        run: |
+          import hashlib, html, json, re, urllib.request
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          from html.parser import HTMLParser
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.urls=[]
+              def handle_starttag(self, tag, attrs):
+                  a=dict(attrs)
+                  if tag=='meta' and a.get('property')=='og:image': self.urls.append(a.get('content',''))
+                  if tag=='img' and a.get('src'): self.urls.append(a['src'])
+          sources=[
+              ('https://chatgpt.com/s/m_6aac0362f49c81919a91fbbae81c9894','burger.png','18d9c2f7a545f0cba49bfcb5470e2a81f6481b637a2dd31ef81e7ec5018e6558'),
+              ('https://chatgpt.com/s/m_6aac049e06088191bd20d5e05dd11cd5','logo-horizontal.png','af047bebf06323c1ccf7ce2ea13e71f61d430fa2780b36bc4347d08d88d81539')
+          ]
+          def get(url):
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Accept':'text/html,image/png,*/*'})
+              with urllib.request.urlopen(req,timeout=25) as r: return r.read(12000000)
+          dest=Path('assets'); dest.mkdir(exist_ok=True)
+          for share,name,expected in sources:
+              body=get(share)
+              if body.startswith(b'\x89PNG'):
+                  candidates=[share]
+              else:
+                  text=body.decode('utf-8'); parser=Parser(); parser.feed(text)
+                  candidates=parser.urls
+                  print(name,'image candidates:',len(candidates))
+              saved=False
+              for candidate in candidates[:10]:
+                  url=urljoin(share,html.unescape(candidate))
+                  host=urlparse(url).hostname or ''
+                  if urlparse(url).scheme!='https' or not any(host==x or host.endswith('.'+x) for x in ('chatgpt.com','oaiusercontent.com','oaistatic.com')): continue
+                  try:
+                      data=get(url)
+                      if hashlib.sha256(data).hexdigest()==expected:
+                          (dest/name).write_bytes(data); saved=True; print('Verified:',name,len(data)); break
+                  except Exception as exc: print('Candidate unavailable:',type(exc).__name__)
+              if not saved: raise RuntimeError('The public share did not expose the exact approved PNG: '+name)
+      - name: Commit only the verified images on the design branch
+        run: |
+          git add assets/burger.png assets/logo-horizontal.png
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'assets: add verified approved Burdega PNG images'
+            git push origin HEAD:design/brand-refresh
+          fi
