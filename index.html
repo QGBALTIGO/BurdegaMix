@@ -61,6 +61,49 @@
   }
 }
  </style>
+ <style id="burger-photo-composition">
+/* Only the existing burger area: same photo, a larger fit and a gentle tilt. */
+.poster-art--photo .sun-disc {
+  background: var(--red);
+  top: 7%;
+  left: 50%;
+  width: auto;
+  height: 92%;
+  transform: translateX(-50%);
+}
+.poster-art--photo .burger-art {
+  top: 0;
+  left: 3%;
+  width: 94%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 50%;
+  transform: rotate(-10deg);
+  animation: none;
+  filter: drop-shadow(0 9px 7px #14141226);
+  z-index: 1;
+}
+.poster:hover .poster-art--photo .burger-art {
+  transform: rotate(-11.5deg) translateY(-3px);
+}
+.burger-accents {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  pointer-events: none;
+  z-index: 0;
+}
+.burger-accents .spark { fill: var(--red); }
+@media (min-width: 761px) and (max-width: 1099px) {
+  .poster-art--photo .burger-art { left: 11%; width: 78%; top: 6%; height: 88%; }
+  .poster-art--photo .sun-disc { top: 12%; height: 76%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .poster:hover .poster-art--photo .burger-art { transform: rotate(-10deg); }
+}
+ </style>
  <script src="config.js" defer></script>
  <script src="script.js" defer></script>
 </head>
@@ -82,10 +125,16 @@
   <section class="poster" aria-labelledby="hero-title">
    <div class="poster-top"><span class="eyebrow"><span class="tiny-star">✳</span> ARTESANAL. DO NOSSO JEITO.</span><span class="edition">EST. 2013</span></div>
    <h1 id="hero-title"><span>SUA FOME</span><span>TEM <em>ENDEREÇO.</em></span></h1>
-   <div class="poster-art">
+   <div class="poster-art poster-art--photo">
     <div class="sun-disc" aria-hidden="true"></div>
+    <svg class="burger-accents" viewBox="0 0 650 500" fill="none" aria-hidden="true" focusable="false">
+     <g stroke="currentColor" stroke-width="5" stroke-linecap="round">
+      <path d="m112 121-19-18m11 47-29-9M557 183l20-19m-12 48 27-9"/>
+     </g>
+     <path class="spark" d="m566 65 7 20 20 7-20 7-7 20-7-20-20-7 20-7ZM55 240l5 15 15 5-15 5-5 15-5-15-15-5 15-5Z"/>
+    </svg>
     <span class="arc-label" aria-hidden="true">BATEU A FOME? JÁ SABE.</span>
-    <img class="burger-art" src="https://i.ibb.co/kgWQ2xWP/2634-BB4-E-6-E4-F-4-D89-A476-321335-F4-E4-BC.png" alt="Hambúrguer da Burdega" width="650" height="500" fetchpriority="high" referrerpolicy="no-referrer" style="top:5%;height:90%;object-fit:contain">
+    <img class="burger-art" src="https://i.ibb.co/kgWQ2xWP/2634-BB4-E-6-E4-F-4-D89-A476-321335-F4-E4-BC.png" alt="Hambúrguer da Burdega" width="650" height="500" fetchpriority="high" referrerpolicy="no-referrer">
     <span class="round-stamp" aria-label="Desde 2013"><span>FEITO COM</span><svg class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><strong>DESDE 2013</strong></span>
     <span class="poster-scribble" aria-hidden="true">é de dar<br>água na boca!</span>
     <svg class="scribble-arrow" viewBox="0 0 90 80" fill="none" aria-hidden="true"><path d="M8 8C1 55 32 69 73 41M55 37l22 1-5 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
