@@ -1,0 +1,60 @@
+name: Build and verify Burdega
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: burdega-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm install --no-audit --no-fund; fi
+      - run: npm test
+      - run: npm run build
+      - name: Verify official photos were cached
+        run: |
+          test -s public/media/logo.webp
+          test -s public/media/gourmet-miix.webp
+          test -s public/media/bacon-bliss.webp
+          test -s public/media/stick-b.webp
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Upload static website
+        uses: actions/upload-artifact@v4
+        with:
+          name: burdega-site-dist
+          path: dist
+          retention-days: 14
+      - name: Upload screenshots and test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: burdega-visual-tests
+          path: |
+            test-results
+            playwright-report
+          retention-days: 14
+      - name: Persist first-build lockfile and official optimized images
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git add package-lock.json public/media/
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'chore: vendor verified Burdega images and lock dependencies'
+            git push origin HEAD:main
+          fi
