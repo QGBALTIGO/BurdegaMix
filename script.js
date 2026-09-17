@@ -24,7 +24,22 @@
     const url = safeUrl(config.links?.[link.dataset.link]);
     if (url) link.href = url;
   });
-  // The official header logo is local and declared directly in the HTML.
+  // Load the public original logo only on a hosted page. The small supporting
+  // SVG keeps the local preview independent of any external image service.
+  if (config.logo?.loadRemoteWhenHosted && /^https?:$/.test(location.protocol)) {
+    const url = safeUrl(config.logo.url);
+    const host = $('.brand-mark');
+    if (url && host) {
+      const original = new Image();
+      original.alt = '';
+      original.width = 52; original.height = 52;
+      original.className = 'logo-original';
+      original.referrerPolicy = 'no-referrer';
+      original.addEventListener('load', () => host.appendChild(original), { once: true });
+      original.addEventListener('error', () => {}, { once: true });
+      original.src = url;
+    }
+  }
   if (config.address?.short) $('[data-address]').textContent = config.address.short;
   $$('[data-year]').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
   $$('[data-remote-logo]').forEach((img) => {

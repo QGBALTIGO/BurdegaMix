@@ -10,9 +10,9 @@ Abra `index.html` no navegador. Não é necessário instalar Node, dependências
 
 - `index.html`: estrutura, textos e links de alternativa sem JavaScript.
 - `styles.css`: cores, layout responsivo e animações.
-- `config.js`: links, endereço, horários e compartilhamento.
+- `config.js`: links, endereço, referência da logo, horários e compartilhamento.
 - `script.js`: janelas, cópia de endereço, compartilhamento e botão de pedido no celular.
-- `assets/`: ilustrações SVG e logo oficial local.
+- `assets/`: ilustrações SVG locais.
 - `gerar_html_unico.py`: gerador opcional de uma cópia portátil.
 
 Ao alterar links no `config.js`, atualize também os `href` correspondentes no HTML para manter o funcionamento sem JavaScript.
@@ -37,7 +37,7 @@ Isso gera `burdega.html`, que pode ser publicado sozinho com o nome `index.html`
 
 Os horários continuam pendentes de confirmação: as referências consultadas na criação divergiam. Mantenha `openingHours.confirmed` como `false` até confirmar com a hamburgueria. A página não anuncia se está aberta ou fechada em tempo real.
 
-O hambúrguer continua sendo uma ilustração decorativa, não uma fotografia de produto. O cabeçalho usa a logo oficial enviada pelo proprietário, em `assets/logo-burdega-oficial.webp`, sem nome duplicado nem carregamento externo. A imagem recebida era JPEG com fundo branco: foi somente redimensionada para 768 × 256 e otimizada em WebP, preservando a composição, a proporção 3:1 e o fundo original. O gerador de HTML único também incorpora essa logo. O favicon e o restante do layout não foram alterados.
+O hambúrguer é uma ilustração decorativa, não uma fotografia de produto. A logo tenta carregar a imagem pública do Linktree quando a página é hospedada; a ilustração local serve de alternativa se o carregamento falhar. Para independência completa, use o arquivo oficial local e desative `logo.loadRemoteWhenHosted`.
 
 Pedidos continuam no cardápio existente; não há carrinho próprio, banco de dados, cadastro, API paga ou rastreamento neste código. Nenhum relatório de clientes foi incluído.
 

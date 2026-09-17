@@ -10,6 +10,10 @@
 */
 window.BURDEGA_CONFIG = {
   "brand": "Burdega Hamburgueria",
+  "logo": {
+    "loadRemoteWhenHosted": true,
+    "url": "https://ugc.production.linktr.ee/bWlHP1qBT42NM6PQbADk_0001-6067873187264833697.png?io=true&size=avatar-v3_0"
+  },
   "links": {
     "menu": "https://burdegamix.pedizap.com.br/",
     "whatsapp": "https://wa.me/5588998047212?text=Oi%2C%20Burdega%21%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido.%20%F0%9F%8D%94",
